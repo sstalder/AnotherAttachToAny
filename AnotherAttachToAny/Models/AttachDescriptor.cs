@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Microsoft.VisualStudio.Shell;
 using ArcDev.AnotherAttachToAny.Components;
+using Microsoft.VisualStudio.Shell;
 
 namespace ArcDev.AnotherAttachToAny.Models
 {
@@ -14,9 +14,9 @@ namespace ArcDev.AnotherAttachToAny.Models
 	{
 		public AttachDescriptor()
 		{
-			 _processNameRegexesLazy = new Lazy<List<Regex>>(ProcessNamesToRegexes);
-			 _usernameRegexLazy = new Lazy<Regex>(UsernameToRegex);
-			 _appPoolRegexLazy = new Lazy<Regex>(AppPoolToRegex);
+			_processNameRegexesLazy = new Lazy<List<Regex>>(ProcessNamesToRegexes);
+			_usernameRegexLazy = new Lazy<Regex>(UsernameToRegex);
+			_appPoolRegexLazy = new Lazy<Regex>(AppPoolToRegex);
 
 			Enabled = true;
 			ProcessNames = new List<string>();
@@ -38,8 +38,8 @@ namespace ArcDev.AnotherAttachToAny.Models
 		[TypeConverter(typeof(StringListTypeConverter))]
 		public IEnumerable<string> ProcessNames { get; set; }
 
-		[DisplayName("ProcessNames is Regex List")]
-		[Category("General")]
+		[DisplayName("Processes is Regex List")]
+		[Category("Regex Handling")]
 		[Description("Treat the ProcessNames value(s) as (a) regular expression(s).")]
 		[DefaultValue(false)]
 		public bool IsProcessNamesRegex { get; set; }
@@ -63,7 +63,7 @@ namespace ArcDev.AnotherAttachToAny.Models
 		public string Username { get; set; }
 
 		[DisplayName("Username is Regex")]
-		[Category("General")]
+		[Category("Regex Handling")]
 		[Description("Treat the Username value as a regular expression.")]
 		[DefaultValue(false)]
 		public bool IsUsernameRegex { get; set; }
@@ -74,7 +74,7 @@ namespace ArcDev.AnotherAttachToAny.Models
 		public string AppPool { get; set; }
 
 		[DisplayName("AppPool is Regex")]
-		[Category("General")]
+		[Category("Regex Handling")]
 		[Description("Treat the AppPool value as a regular expression.")]
 		[DefaultValue(false)]
 		public bool IsAppPoolRegex { get; set; }
@@ -112,12 +112,19 @@ namespace ArcDev.AnotherAttachToAny.Models
 
 		public override string ToString()
 		{
-			var text = string.IsNullOrWhiteSpace(Name) ?
-				(ProcessNames == null || !ProcessNames.Any() ?
-						"[Unused]" :
-						string.Join(",", ProcessNames)
-				)
-				: Name;
+			string text;
+			if (string.IsNullOrWhiteSpace(Name))
+			{
+				if (ProcessNames == null || !ProcessNames.Any())
+				{
+					return "[Unused]";
+				}
+				text = string.Join(",", ProcessNames);
+			}
+			else
+			{
+				text = Name;
+			}
 
 			if (Shortcut == '\0')
 			{

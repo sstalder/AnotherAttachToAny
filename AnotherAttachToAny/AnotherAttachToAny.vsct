@@ -37,7 +37,7 @@
 				<Parent guid="guidAnotherAttachToAnySettingsGroup" id="AnotherAttachToAnySettingsGroup"/>
 				<Strings>
 					<CommandName>cmdidAnotherAttachToAny</CommandName>
-					<ButtonText>AnotherAttachToAny Settings</ButtonText>
+					<ButtonText>AnotherAttachToAny &amp;Settings</ButtonText>
 				</Strings>
 			</Button>
 

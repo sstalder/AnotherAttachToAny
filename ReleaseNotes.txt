@@ -1,3 +1,7 @@
+1.0.8
+	- fixed "unused" name in settings
+	- grouped settings to regex flags are grouped
+
 1.0.7
 	- Forked from Ryan Conrad's https://github.com/camalot/AttachToAny
 	- renamed to AnotherAttachToAny

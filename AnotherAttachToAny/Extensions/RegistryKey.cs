@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using System;
+using Microsoft.Win32;
 
 namespace ArcDev.AnotherAttachToAny.Extensions
 {
@@ -12,6 +13,14 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 
 		public static bool GetBooleanValue(this RegistryKey key, string keyFormat, int index)
 		{
+			var name = string.Format(keyFormat, index);
+			if (key.GetValueKind(name) == RegistryValueKind.DWord)
+			{
+				var intValue = key.GetValue(name);
+				return Convert.ToBoolean(intValue);
+			}
+
+			// fallback for older settings
 			var str = key.GetStringValue(keyFormat, index);
 			bool rtn;
 			return bool.TryParse(str, out rtn) && rtn;
@@ -36,8 +45,8 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 
 		public static void SetValue(this RegistryKey key, string keyFormat, int index, bool value)
 		{
-			var strValue = value.ToString().ToLowerInvariant();
-			key.SetValue(keyFormat, index, strValue);
+			var name = string.Format(keyFormat, index);
+			key.SetValue(name, Convert.ToInt32(value), RegistryValueKind.DWord);
 		}
 	}
 }

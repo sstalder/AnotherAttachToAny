@@ -1,4 +1,3 @@
 ﻿- add Global regex handling property (bool)
 - add Multi-process match attach handling (First, Last, All, Random, Prompt)
 - convert automatic, numeric keyboard shortcut to property
-- change boolean types in storage (registry & XML) from String into Bool/bit

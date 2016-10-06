@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.Shell.Interop;
+﻿using System;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace ArcDev.AnotherAttachToAny.Extensions
 {
@@ -14,15 +15,22 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 
 		public static bool? ReadSettingStringToBoolean(this IVsSettingsReader reader, string keyFormat, int index)
 		{
-			var key = string.Format(keyFormat, index);
-			string value;
-			reader.ReadSettingString(key, out value);
-			if (value == null)
+			var name = string.Format(keyFormat, index);
+			int intValue;
+			var readResult = reader.ReadSettingBoolean(name, out intValue);
+			if (readResult == Microsoft.VisualStudio.VSConstants.S_OK)
+			{
+				return Convert.ToBoolean(intValue);
+			}
+
+			// fallback for older settings
+			var strValue = reader.ReadSettingString(keyFormat, index);
+			if (strValue == null)
 			{
 				return null;
 			}
 			bool rtn;
-			return bool.TryParse(value.ToLowerInvariant(), out rtn) && rtn;
+			return bool.TryParse(strValue.ToLowerInvariant(), out rtn) && rtn;
 		}
 
 		public static void WriteSettingString(this IVsSettingsWriter writer, string keyFormat, int index, string value)
@@ -37,8 +45,8 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 
 		public static void WriteSettingString(this IVsSettingsWriter writer, string keyFormat, int index, bool value)
 		{
-			var strValue = value.ToString().ToLowerInvariant();
-			writer.WriteSettingString(keyFormat, index, strValue);
+			var name = string.Format(keyFormat, index);
+			writer.WriteSettingBoolean(name, Convert.ToInt32(value));
 		}
 	}
 }

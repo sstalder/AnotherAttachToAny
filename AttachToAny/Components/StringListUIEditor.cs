@@ -6,14 +6,14 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace RyanConrad.AttachToAny.Components
+namespace ArcDev.AttachToAny.Components
 {
 	/// <summary>
 	/// A dropdown that allows a user to enter multiple lines of strings, each line is then converted in to a collection.
 	/// </summary>
 	public class StringListUIEditor : UITypeEditor
 	{
-		IWindowsFormsEditorService frmsvr;
+		private IWindowsFormsEditorService _frmsvr;
 
 		/// <summary>
 		/// Edits the specified object's value using the editor style indicated by the <see cref="M:System.Drawing.Design.UITypeEditor.GetEditStyle"></see> method.
@@ -30,8 +30,8 @@ namespace RyanConrad.AttachToAny.Components
 			{
 				return value;
 			}
-			frmsvr = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
-			if (frmsvr == null)
+			_frmsvr = (IWindowsFormsEditorService) provider.GetService(typeof(IWindowsFormsEditorService));
+			if (_frmsvr == null)
 			{
 				return value;
 			}
@@ -62,12 +62,12 @@ namespace RyanConrad.AttachToAny.Components
 				var lst = (IEnumerable<string>) value;
 				foreach (var s in lst)
 				{
-					tb.AppendText(string.Format("{0}{1}", s, Environment.NewLine));
+					tb.AppendText($"{s}{Environment.NewLine}");
 				}
 			}
 
 
-			frmsvr.DropDownControl(panel);
+			_frmsvr.DropDownControl(panel);
 
 			var result = tb.Text.Trim();
 			if (string.IsNullOrEmpty(result))

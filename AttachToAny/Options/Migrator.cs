@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
+using ArcDev.AttachToAny.Extensions;
 using Microsoft.Win32;
-using RyanConrad.AttachToAny.Extensions;
 
-namespace RyanConrad.AttachToAny.Options
+namespace ArcDev.AttachToAny.Options
 {
 	/// <summary>
 	/// This is a "fix" for screw ups...
@@ -34,7 +34,7 @@ namespace RyanConrad.AttachToAny.Options
 				{
 					return;
 				}
-				var newList = allProcesses.Where(s => string.Compare(s, badProcessName, StringComparison.OrdinalIgnoreCase) != 0).Concat(new[] {ATAConstants.IIS_PROCESS});
+				var newList = allProcesses.Where(s => string.Compare(s, badProcessName, StringComparison.OrdinalIgnoreCase) != 0).Concat(new[] {ATAConstants.ProcessNames.IISWorkerProcessName});
 				key.SetValue(processGroup, string.Join(ATAConstants.ProcessNamesSeparator, newList));
 			}
 			catch (Exception)

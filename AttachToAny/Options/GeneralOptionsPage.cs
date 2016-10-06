@@ -5,14 +5,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing.Design;
 using System.Linq;
+using ArcDev.AttachToAny.Components;
+using ArcDev.AttachToAny.Extensions;
+using ArcDev.AttachToAny.Models;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RyanConrad.AttachToAny.Components;
-using RyanConrad.AttachToAny.Extensions;
-using RyanConrad.AttachToAny.Models;
 
-namespace RyanConrad.AttachToAny.Options
+namespace ArcDev.AttachToAny.Options
 {
 	public class GeneralOptionsPage : DialogPage
 	{
@@ -20,19 +20,19 @@ namespace RyanConrad.AttachToAny.Options
 
 		[Editor(typeof(CollectionEditor<AttachDescriptor>), typeof(UITypeEditor))]
 		[TypeConverter(typeof(IListTypeConverter))]
-		[Category("Attach To Any")]
+		[Category("Another Attach To Any")]
 		[LocDisplayName("Attachables")]
 		[Description("The items that can be used to attach to processes for debugging.")]
 		public ReadOnlyCollection<AttachDescriptor> Attachables { get; set; }
 
-		//[Category ( "Attach To Any" )]
+		//[Category ( "Another Attach To Any" )]
 		//[LocDisplayName ( "Choose which Process" )]
 		//[DisplayName ( "Choose which Process" )]
 		//[Description ( "Where there are multiple instances of a process, show a dialog that will allow you to choose which process to attach to. Setting to false will use a 'best guess' on which process to attach to." )]
 		//[DefaultValue ( false )]
 		//public bool ChooseProcess { get; set; }
 
-		//todo: GlobalAttachTo: {first, last, all} First matching process; Last matching process; All matching processes
+		//todo: GlobalAttachTo: {first, last, all, prompt, random, none} First matching process; Last matching process; All matching processes
 
 		protected override void OnApply(PageApplyEventArgs e)
 		{
@@ -44,6 +44,8 @@ namespace RyanConrad.AttachToAny.Options
 			}
 			base.OnApply(e);
 		}
+
+		#region Registry
 
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
 		public override void LoadSettingsFromStorage()
@@ -63,22 +65,23 @@ namespace RyanConrad.AttachToAny.Options
 						{
 							for (var i = 0; i < ATAConstants.MaxCommands; i++)
 							{
-								if (key.GetValueNames().Any(x => x.Equals(ATASettings.Keys.AttachDescriptorName.With(i))))
+								var descriptorName = string.Format(ATASettings.Keys.AttachDescriptorName, i);
+								if (key.GetValueNames().Any(name => name.Equals(descriptorName, StringComparison.OrdinalIgnoreCase)))
 								{
 									Migrator.IISFix(key, i);
 
 									items.Add(new AttachDescriptor
-									          {
-										          Name = key.GetStringValue(ATASettings.Keys.AttachDescriptorName, i),
-										          Enabled = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorEnabled, i),
-										          ProcessNames = key.GetStringValue(ATASettings.Keys.AttachDescriptorProcessNames, i).Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries),
-										          IsProcessNamesRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i),
-										          ChooseProcess = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorChooseProcess, i),
-										          Username = key.GetStringValue(ATASettings.Keys.AttachDescriptorUsername, i),
-										          IsUsernameRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i),
-										          AppPool = key.GetStringValue(ATASettings.Keys.AttachDescriptorAppPool, i),
-										          IsAppPoolRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i),
-									          });
+									{
+										Name = key.GetStringValue(ATASettings.Keys.AttachDescriptorName, i),
+										Enabled = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorEnabled, i),
+										ProcessNames = key.GetStringValue(ATASettings.Keys.AttachDescriptorProcessNames, i).Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries),
+										IsProcessNamesRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i),
+										ChooseProcess = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorChooseProcess, i),
+										Username = key.GetStringValue(ATASettings.Keys.AttachDescriptorUsername, i),
+										IsUsernameRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i),
+										AppPool = key.GetStringValue(ATASettings.Keys.AttachDescriptorAppPool, i),
+										IsAppPoolRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i)
+									});
 								}
 								else
 								{
@@ -105,109 +108,6 @@ namespace RyanConrad.AttachToAny.Options
 		}
 
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
-		public override void LoadSettingsFromXml(IVsSettingsReader reader)
-		{
-			var items = new List<AttachDescriptor>();
-			try
-			{
-				for (var i = 0; i < ATAConstants.MaxCommands; i++)
-				{
-					var nameKey = ATASettings.Keys.AttachDescriptorName.With(i);
-					var enabledKey = ATASettings.Keys.AttachDescriptorEnabled.With(i);
-					var processesKey = ATASettings.Keys.AttachDescriptorProcessNames.With(i);
-					var isProcessesRegexKey = ATASettings.Keys.AttachDescriptorIsProcessNamesRegex.With(i);
-					var chooseKey = ATASettings.Keys.AttachDescriptorChooseProcess.With(i);
-					var usernameKey = ATASettings.Keys.AttachDescriptorUsername.With(i);
-					var isUsernameRegexKey = ATASettings.Keys.AttachDescriptorIsUsernameRegex.With(i);
-					var AppPoolKey = ATASettings.Keys.AttachDescriptorAppPool.With(i);
-					var isAppPoolRegexKey = ATASettings.Keys.AttachDescriptorIsAppPoolRegex.With(i);
-
-					// read from the xml feed
-					var item = new AttachDescriptor();
-					try
-					{
-						string value;
-						reader.ReadSettingString(nameKey, out value);
-						if (value != null)
-						{
-							item.Name = value;
-						}
-
-						var enabled = reader.ReadSettingStringToBoolean(enabledKey);
-						if (enabled.HasValue)
-						{
-							item.Enabled = enabled.Value;
-						}
-
-						var parsedBool = reader.ReadSettingStringToBoolean(chooseKey);
-						if (parsedBool.HasValue)
-						{
-							item.ChooseProcess = parsedBool.Value;
-						}
-
-						reader.ReadSettingString(processesKey, out value);
-						if (value != null)
-						{
-							item.ProcessNames = value.Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries);
-						}
-
-						parsedBool = reader.ReadSettingStringToBoolean(isProcessesRegexKey);
-						if (parsedBool.HasValue)
-						{
-							item.IsProcessNamesRegex = parsedBool.Value;
-						}
-
-						reader.ReadSettingString(usernameKey, out value);
-						if (value != null)
-						{
-							item.Username = value;
-						}
-
-						parsedBool = reader.ReadSettingStringToBoolean(isUsernameRegexKey);
-						if (parsedBool.HasValue)
-						{
-							item.IsUsernameRegex = parsedBool.Value;
-						}
-
-						reader.ReadSettingString(AppPoolKey, out value);
-						if (value != null)
-						{
-							item.AppPool = value;
-						}
-
-						parsedBool = reader.ReadSettingStringToBoolean(isAppPoolRegexKey);
-						if (parsedBool.HasValue)
-						{
-							item.IsAppPoolRegex = parsedBool.Value;
-						}
-					}
-					catch (Exception ex)
-					{
-						Debug.WriteLine("Unhandled exception in LoadSettingsFromXml:{0}", ex);
-					}
-
-					if (!string.IsNullOrWhiteSpace(item.Name) && item.ProcessNames != null && item.ProcessNames.Any())
-					{
-						items.Add(item);
-					}
-					else
-					{
-						// this ensures it is a clean item if any of the other properties were saved previously.
-						items.Add(new AttachDescriptor());
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine("Unhandled exception in LoadSettingsFromXml:{0}", ex);
-			}
-			Attachables = new ReadOnlyCollection<AttachDescriptor>(items);
-			// notify of newly loaded settings
-			OnSettingsLoaded(EventArgs.Empty);
-			base.LoadSettingsFromXml(reader);
-		}
-
-		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
 		public override void SaveSettingsToStorage()
 		{
 			var package = GetServiceSafe<AttachToAnyPackage>();
@@ -230,32 +130,128 @@ namespace RyanConrad.AttachToAny.Options
 						if (string.IsNullOrWhiteSpace(item.Name) && !item.ProcessNames.Any())
 						{
 							// this should remove "cleared" items
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorName.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorEnabled.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorProcessNames.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorChooseProcess.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorUsername.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorAppPool.With(i), false);
-							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex.With(i), false);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorName, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorEnabled, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorProcessNames, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorChooseProcess, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorUsername, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorAppPool, i);
+							key.DeleteValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i);
 						}
 						else
 						{
-							key.SetValue(ATASettings.Keys.AttachDescriptorName.With(i), item.Name);
-							key.SetValue(ATASettings.Keys.AttachDescriptorEnabled.With(i), item.Enabled.ToString().ToLowerInvariant());
-							key.SetValue(ATASettings.Keys.AttachDescriptorProcessNames.With(i), string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
-							key.SetValue(ATASettings.Keys.AttachDescriptorChooseProcess.With(i), item.ChooseProcess.ToString().ToLowerInvariant());
-							key.SetValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex.With(i), item.IsProcessNamesRegex.ToString().ToLowerInvariant());
-							key.SetValue(ATASettings.Keys.AttachDescriptorUsername.With(i), item.Username ?? string.Empty);
-							key.SetValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex.With(i), item.IsUsernameRegex.ToString().ToLowerInvariant());
-							key.SetValue(ATASettings.Keys.AttachDescriptorAppPool.With(i), item.AppPool ?? string.Empty);
-							key.SetValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex.With(i), item.IsAppPoolRegex.ToString().ToLowerInvariant());
+							key.SetValue(ATASettings.Keys.AttachDescriptorName, i, item.Name);
+							key.SetValue(ATASettings.Keys.AttachDescriptorEnabled, i, item.Enabled);
+							key.SetValue(ATASettings.Keys.AttachDescriptorProcessNames, i, string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
+							key.SetValue(ATASettings.Keys.AttachDescriptorChooseProcess, i, item.ChooseProcess);
+							key.SetValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i, item.IsProcessNamesRegex);
+							key.SetValue(ATASettings.Keys.AttachDescriptorUsername, i, item.Username);
+							key.SetValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i, item.IsUsernameRegex);
+							key.SetValue(ATASettings.Keys.AttachDescriptorAppPool, i, item.AppPool);
+							key.SetValue(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i, item.IsAppPoolRegex);
 						}
 					}
 				}
 			}
 			base.SaveSettingsToStorage();
+		}
+
+		#endregion Registry
+
+		#region XML
+
+		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
+		public override void LoadSettingsFromXml(IVsSettingsReader reader)
+		{
+			var items = new List<AttachDescriptor>();
+			try
+			{
+				for (var i = 0; i < ATAConstants.MaxCommands; i++)
+				{
+					// read from the xml feed
+					var item = new AttachDescriptor();
+					try
+					{
+						var value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorName, i);
+						if (value != null)
+						{
+							item.Name = value;
+						}
+
+						var enabled = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorEnabled, i);
+						if (enabled.HasValue)
+						{
+							item.Enabled = enabled.Value;
+						}
+
+						var parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorChooseProcess, i);
+						if (parsedBool.HasValue)
+						{
+							item.ChooseProcess = parsedBool.Value;
+						}
+
+						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorProcessNames, i);
+						if (value != null)
+						{
+							item.ProcessNames = value.Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries);
+						}
+
+						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i);
+						if (parsedBool.HasValue)
+						{
+							item.IsProcessNamesRegex = parsedBool.Value;
+						}
+
+						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorUsername, i);
+						if (value != null)
+						{
+							item.Username = value;
+						}
+
+						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i);
+						if (parsedBool.HasValue)
+						{
+							item.IsUsernameRegex = parsedBool.Value;
+						}
+
+						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorAppPool, i);
+						if (value != null)
+						{
+							item.AppPool = value;
+						}
+
+						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i);
+						if (parsedBool.HasValue)
+						{
+							item.IsAppPoolRegex = parsedBool.Value;
+						}
+					}
+					catch (Exception ex)
+					{
+						Debug.WriteLine($"Unhandled exception in LoadSettingsFromXml:{ex}");
+					}
+
+					if (!string.IsNullOrWhiteSpace(item.Name) && item.ProcessNames != null && item.ProcessNames.Any())
+					{
+						items.Add(item);
+					}
+					else
+					{
+						// this ensures it is a clean item if any of the other properties were saved previously.
+						items.Add(new AttachDescriptor());
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine($"Unhandled exception in LoadSettingsFromXml:{ex}");
+			}
+			Attachables = new ReadOnlyCollection<AttachDescriptor>(items);
+			// notify of newly loaded settings
+			OnSettingsLoaded(EventArgs.Empty);
+			base.LoadSettingsFromXml(reader);
 		}
 
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
@@ -270,27 +266,26 @@ namespace RyanConrad.AttachToAny.Options
 					continue;
 				}
 				// only items with names and processes
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorName.With(i), item.Name);
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorEnabled.With(i), item.Enabled.ToString().ToLowerInvariant());
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorProcessNames.With(i), string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorChooseProcess.With(i), item.ChooseProcess.ToString().ToLowerInvariant());
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorName, i, item.Name);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorEnabled, i, item.Enabled);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorProcessNames, i, string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorChooseProcess, i, item.ChooseProcess);
 
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex.With(i), item.IsProcessNamesRegex.ToString().ToLowerInvariant());
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorUsername.With(i), item.Username);
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsUsernameRegex.With(i), item.IsUsernameRegex.ToString().ToLowerInvariant());
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorAppPool.With(i), item.AppPool);
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsAppPoolRegex.With(i), item.IsAppPoolRegex.ToString().ToLowerInvariant());
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i, item.IsProcessNamesRegex);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorUsername, i, item.Username);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i, item.IsUsernameRegex);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorAppPool, i, item.AppPool);
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i, item.IsAppPoolRegex);
 			}
 
 			base.SaveSettingsToXml(writer);
 		}
 
+		#endregion XML
+
 		[EditorBrowsable(EditorBrowsableState.Never)]
 		[Browsable(false)]
-		public DTE DTE
-		{
-			get { return GetService(typeof(DTE)) as DTE; }
-		}
+		public DTE Dte => GetService(typeof(DTE)) as DTE;
 
 		private void OnSettingsLoaded(EventArgs args)
 		{

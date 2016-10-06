@@ -4,11 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using ArcDev.AttachToAny.Models;
 using EnvDTE;
-using RyanConrad.AttachToAny.Extensions;
-using RyanConrad.AttachToAny.Models;
 
-namespace RyanConrad.AttachToAny.Dialog
+namespace ArcDev.AttachToAny.Dialog
 {
 	/// <summary>
 	/// Interaction logic for ProcessSelectionWindow.xaml
@@ -29,7 +28,7 @@ namespace RyanConrad.AttachToAny.Dialog
 			}
 			InitializeComponent();
 			DataContext = this;
-			Title = "{0} - {1}".With(Title, Processes.First().ShortName);
+			Title = $"{Title} - {Processes.First().ShortName}";
 		}
 
 		public ICollection<ProcessItem> Processes { get; set; }
@@ -42,11 +41,7 @@ namespace RyanConrad.AttachToAny.Dialog
 		private void ProcessesListView_DoubleClick(object sender, RoutedEventArgs e)
 		{
 			var lvItem = sender as ListViewItem;
-			if (lvItem == null)
-			{
-				return;
-			}
-			var item = lvItem.Content as ProcessItem;
+			var item = lvItem?.Content as ProcessItem;
 			if (item == null)
 			{
 				return;

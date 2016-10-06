@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
-		<Identity Id="177f0816-76a7-401a-87d5-e793c9def1d1" Version="1.0.6" Language="en-US" Publisher="Ryan Conrad" />
-		<DisplayName>AttachToAny</DisplayName>
+		<Identity Id="9071916a-d034-41ea-bc44-65d10858bb02" Version="1.0.6" Language="en-US" Publisher="ArcDev" />
+		<DisplayName>AnotherAttachToAny</DisplayName>
 		<Description xml:space="preserve">Attach Visual Studio to any running process. Configure up to 20 shortcuts for attaching Visual Studio debugger to.
-Support for other version of Visual Studio will come later. 
-A cleaner menu system will come soon as well.</Description>
-		<MoreInfo>https://github.com/camalot/AttachToAny</MoreInfo>
+(Forked from Ryan Conrad's AttachToAny https://github.com/camalot/AttachToAny)
+</Description>
+		<MoreInfo>https://github.com/arcdev/AnotherAttachToAny</MoreInfo>
 		<License>LICENSE.txt</License>
-		<GettingStartedGuide>http://blog.twimager.com/2014/01/published-my-first-visual-studio.html</GettingStartedGuide>
+		<!--<GettingStartedGuide>http://blog.twimager.com/2014/01/published-my-first-visual-studio.html</GettingStartedGuide>-->
 		<ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
-		<PreviewImage>ata-preview.png</PreviewImage>
+		<!--<PreviewImage>ata-preview.png</PreviewImage>-->
 		<Tags>debug, debugger, debugging</Tags>
 	</Metadata>
 	<Installation InstalledByMsi="false">

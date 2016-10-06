@@ -147,7 +147,6 @@
     <Compile Include="Dialog\ProcessSelectionWindow.xaml.cs">
       <DependentUpon>ProcessSelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Extensions\String.cs" />
     <Compile Include="Options\ATASettings.cs" />
     <Compile Include="Components\CollectionEditor.cs" />
     <Compile Include="Components\IListTypeConverter.cs" />
@@ -214,6 +213,7 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Package.ico" />
+    <Resource Include="Roadmap.txt" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Dialog\ProcessSelectionWindow.xaml">

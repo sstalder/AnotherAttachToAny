@@ -2,7 +2,7 @@
 // MUST match guids.h
 using System;
 
-namespace RyanConrad.AttachToAny {
+namespace ArcDev.AttachToAny {
 	internal static class ATAGuids {
 		public const string guidAttachToAnyPkgString = "dedbee85-faec-4043-8d6c-4b71feb0f1ff";
 

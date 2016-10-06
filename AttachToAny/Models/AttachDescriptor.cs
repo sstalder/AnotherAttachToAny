@@ -5,9 +5,9 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Shell;
-using RyanConrad.AttachToAny.Components;
+using ArcDev.AttachToAny.Components;
 
-namespace RyanConrad.AttachToAny.Models
+namespace ArcDev.AttachToAny.Models
 {
 	[DisplayName("Attach Descriptor")]
 	public class AttachDescriptor
@@ -68,7 +68,6 @@ namespace RyanConrad.AttachToAny.Models
 		[DefaultValue(false)]
 		public bool IsUsernameRegex { get; set; }
 
-		//todo: support AppPool
 		[DisplayName("AppPool")]
 		[Category("General")]
 		[Description("The AppPool regex executing the process.")]
@@ -100,22 +99,13 @@ namespace RyanConrad.AttachToAny.Models
 		}
 
 		[Browsable(false)]
-		public List<Regex> ProcessNameRegexes
-		{
-			get { return _processNameRegexesLazy.Value; }
-		}
+		internal List<Regex> ProcessNameRegexes => _processNameRegexesLazy.Value;
 
 		[Browsable(false)]
-		public Regex AppPoolRegex
-		{
-			get { return _appPoolRegexLazy.Value; }
-		}
+		internal Regex AppPoolRegex => _appPoolRegexLazy.Value;
 
 		[Browsable(false)]
-		public Regex UsernameRegex
-		{
-			get { return _usernameRegexLazy.Value; }
-		}
+		internal Regex UsernameRegex => _usernameRegexLazy.Value;
 
 		public override string ToString()
 		{

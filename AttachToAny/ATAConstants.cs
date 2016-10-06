@@ -1,11 +1,23 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
 
-namespace RyanConrad.AttachToAny
+namespace ArcDev.AttachToAny
 {
-	static class ATAConstants
+	internal static class ATAConstants
 	{
-		public const string IIS_PROCESS = "w3wp.exe";
+		public static class ProcessNames
+		{
+			public const string IISWorkerProcessName = "w3wp.exe";
+			public const string IISExpressProcessName = "iisexpress.exe";
+
+			public const string NUnitAgent = "nunit-agent.exe";
+			public const string NUnit = "nunit.exe";
+			public const string NUnitConsole = "nunit-console.exe";
+			public const string NUnitAgentx86 = "nunit-agent-x86.exe";
+			public const string NUnitx86 = "nunit-x86.exe";
+			public const string NUnitConsolex86 = "nunit-console-x86.exe";
+		}
+
 		public const string ProcessNamesSeparator = ";";
 //		public const string ProcessNamesSeparator = "\t"; // todo: consider processNames seperator as TAB when this is a regex
 
@@ -72,5 +84,5 @@ namespace RyanConrad.AttachToAny
 		public const uint cmdidAttachToAny048 = 0x247;
 		public const uint cmdidAttachToAny049 = 0x248;
 		public const uint cmdidAttachToAny050 = 0x249;
-	};
+	}
 }

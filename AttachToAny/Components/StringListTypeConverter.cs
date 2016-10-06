@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 
-namespace RyanConrad.AttachToAny.Components
+namespace ArcDev.AttachToAny.Components
 {
 	/// <summary>
 	/// Converts a string to a collection of strings and back to a string.
@@ -63,7 +63,7 @@ namespace RyanConrad.AttachToAny.Components
 			var sb = new StringBuilder();
 			foreach (var s in lst)
 			{
-				sb.Append(string.Format("{0};", s));
+				sb.Append($"{s};");
 			}
 			if (sb.Length > 0)
 			{

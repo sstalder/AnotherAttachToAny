@@ -3,17 +3,17 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.Shell;
-using RyanConrad.AttachToAny.Components;
-using RyanConrad.AttachToAny.Extensions;
-using RyanConrad.AttachToAny.Models;
-using RyanConrad.AttachToAny.Options;
+using ArcDev.AttachToAny.Components;
+using ArcDev.AttachToAny.Extensions;
+using ArcDev.AttachToAny.Models;
+using ArcDev.AttachToAny.Options;
 using Process = EnvDTE.Process;
 
-namespace RyanConrad.AttachToAny
+namespace ArcDev.AttachToAny
 {
 	internal class MenuBuilder
 	{
-		private readonly int baseAttachListId = (int) ATAConstants.cmdidAttachToAnyDynamicStart;
+		private const int BaseAttachListId = (int) ATAConstants.cmdidAttachToAnyDynamicStart;
 
 		public MenuBuilder(GeneralOptionsPage optionsPage)
 		{
@@ -27,23 +27,19 @@ namespace RyanConrad.AttachToAny
 			if (OptionsPage.Attachables == null)
 			{
 				Debug.WriteLine("ATA: No Attachables found.");
+				// ReSharper disable once NotResolvedInText
 				throw new ArgumentNullException("attachables");
 			}
 			var items = OptionsPage.Attachables.Where(f => f.Enabled).ToList();
 			for (var i = 0; i < items.Count; ++i)
 			{
-				var id = baseAttachListId + i;
-				AddAttachCommand(mcs, id, x => x.Attachables[i]);
+				var id = BaseAttachListId + i;
+				var descriptor = OptionsPage.Attachables[i];
+				AddAttachCommand(mcs, id, descriptor);
 			}
 		}
 
-		/// <summary>
-		/// Adds the attach command.
-		/// </summary>
-		/// <param name="mcs">The Menu Command Service.</param>
-		/// <param name="commandId"></param>
-		/// <param name="getDescriptor">The get descriptor.</param>
-		private void AddAttachCommand(IMenuCommandService mcs, int commandId, Func<GeneralOptionsPage, AttachDescriptor> getDescriptor)
+		private void AddAttachCommand(IMenuCommandService mcs, int commandId, AttachDescriptor descriptor)
 		{
 			if (mcs == null)
 			{
@@ -52,10 +48,9 @@ namespace RyanConrad.AttachToAny
 
 			var commandIdentifier = new CommandID(ATAGuids.guidAttachToAnyCmdGroup, commandId);
 			var existing = mcs.FindCommand(commandIdentifier);
-			var descriptor = getDescriptor(OptionsPage);
 			if (existing != null)
 			{
-				((DescriptorMenuCommand) existing).Descriptor = descriptor;
+				((DescriptorMenuCommand)existing).Descriptor = descriptor;
 				return;
 			}
 			var menuItem = new DescriptorMenuCommand(MenuCommandInvokeHandler, commandId, descriptor);
@@ -65,13 +60,12 @@ namespace RyanConrad.AttachToAny
 		private void MenuCommandInvokeHandler(object s, EventArgs e)
 		{
 			var menu = (DescriptorMenuCommand) s;
-			if (OptionsPage.DTE == null)
+			if (OptionsPage.Dte == null)
 			{
 				return;
 			}
-			//var procList = new List<Process>();
 
-			var procList = OptionsPage.DTE.Debugger.LocalProcesses.Cast<Process>().Where(proc => IsMatch(menu.Descriptor, proc)).ToList();
+			var procList = OptionsPage.Dte.Debugger.LocalProcesses.Cast<Process>().Where(proc => IsMatch(menu.Descriptor, proc)).ToList();
 
 			if (procList.Count == 0)
 			{

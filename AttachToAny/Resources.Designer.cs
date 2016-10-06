@@ -70,7 +70,7 @@ namespace ArcDev.AttachToAny {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attach To Any.
+        ///   Looks up a localized string similar to Another Attach To Any.
         /// </summary>
         internal static string ToolWindowTitle {
             get {

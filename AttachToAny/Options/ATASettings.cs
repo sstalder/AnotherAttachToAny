@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using RyanConrad.AttachToAny.Models;
+using ArcDev.AttachToAny.Models;
 
-namespace RyanConrad.AttachToAny.Options
+namespace ArcDev.AttachToAny.Options
 {
-	static class ATASettings
+	internal static class ATASettings
 	{
 		public static class Keys
 		{
@@ -20,24 +20,33 @@ namespace RyanConrad.AttachToAny.Options
 
 		public static List<AttachDescriptor> DefaultAttachables()
 		{
-			var items = new List<AttachDescriptor>()
-			            {
-				            new AttachDescriptor
-				            {
-					            Name = "IIS",
-					            ProcessNames = new[] {ATAConstants.IIS_PROCESS},
-				            },
-				            new AttachDescriptor
-				            {
-					            Name = "IIS Express",
-					            ProcessNames = new[] {"iisexpress.exe"},
-				            },
-				            new AttachDescriptor
-				            {
-					            Name = "NUnit",
-					            ProcessNames = new[] {"nunit-agent.exe", "nunit.exe", "nunit-console.exe", "nunit-agent-x86.exe", "nunit-x86.exe", "nunit-console-x86.exe"},
-				            }
-			            };
+			var items = new List<AttachDescriptor>
+			{
+				new AttachDescriptor
+				{
+					Name = "IIS",
+					ProcessNames = new[] {ATAConstants.ProcessNames.IISWorkerProcessName}
+				},
+				new AttachDescriptor
+				{
+					Name = "IIS Express",
+					ProcessNames = new[] {ATAConstants.ProcessNames.IISExpressProcessName}
+				},
+				new AttachDescriptor
+				{
+					Name = "NUnit",
+					ProcessNames = new[]
+					{
+						ATAConstants.ProcessNames.NUnitAgent,
+						ATAConstants.ProcessNames.NUnit,
+						ATAConstants.ProcessNames.NUnitConsole,
+
+						ATAConstants.ProcessNames.NUnitAgentx86,
+						ATAConstants.ProcessNames.NUnitx86,
+						ATAConstants.ProcessNames.NUnitConsolex86
+					}
+				}
+			};
 			var start = items.Count;
 			for (var i = start; i < ATAConstants.MaxCommands; ++i)
 			{

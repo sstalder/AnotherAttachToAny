@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using RyanConrad.AttachToAny.Dialog;
-using RyanConrad.AttachToAny.Options;
+using ArcDev.AttachToAny.Dialog;
+using ArcDev.AttachToAny.Options;
 using Process = EnvDTE.Process;
 
-namespace RyanConrad.AttachToAny
+namespace ArcDev.AttachToAny
 {
 	/// <summary>
 	/// This is the class that implements the package exposed by this assembly.

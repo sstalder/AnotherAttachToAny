@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
 
-namespace RyanConrad.AttachToAny.Components {
-	internal class IListTypeConverter : TypeConverter {
+namespace ArcDev.AttachToAny.Components
+{
+	// ReSharper disable once InconsistentNaming - we're converting an IList so this type name makes sense
+	internal class IListTypeConverter : TypeConverter
+	{
 		/// <summary>
 		/// Returns whether this converter can convert the object to the specified type, using the specified context.
 		/// </summary>
@@ -16,20 +16,19 @@ namespace RyanConrad.AttachToAny.Components {
 		/// <returns>
 		/// true if this converter can perform the conversion; otherwise, false.
 		/// </returns>
-		public override bool CanConvertTo ( ITypeDescriptorContext context, Type destinationType ) {
-			if ( destinationType == typeof ( String ) )
-				return true;
-			else
-				return false;
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			return destinationType == typeof(string);
 		}
 
-		public override object ConvertTo ( ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType ) {
-			if ( destinationType == typeof ( String ) && value != null ) {
-				int count = ( (IList)value ).Count;
-				return string.Format ( "({0} Item{1})", count, count == 1 ? string.Empty : "s" );
-			} else
+		public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+		{
+			if (destinationType != typeof(string) || value == null)
+			{
 				return null;
+			}
+			var count = ((IList) value).Count;
+			return $"({count} Item{(count == 1 ? string.Empty : "s")})";
 		}
-
 	}
 }

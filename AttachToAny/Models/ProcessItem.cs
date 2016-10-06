@@ -1,8 +1,8 @@
 ﻿using System.IO;
+using ArcDev.AttachToAny.Extensions;
 using EnvDTE;
-using RyanConrad.AttachToAny.Extensions;
 
-namespace RyanConrad.AttachToAny.Models
+namespace ArcDev.AttachToAny.Models
 {
 	public class ProcessItem
 	{
@@ -11,30 +11,15 @@ namespace RyanConrad.AttachToAny.Models
 			BaseProcess = baseProcess;
 		}
 
-		public string Name
-		{
-			get { return BaseProcess.Name; }
-		}
+		public string Name => BaseProcess.Name;
 
-		public string ShortName
-		{
-			get { return Path.GetFileName(Name); }
-		}
+		public string ShortName => Path.GetFileName(Name);
 
-		public string Title
-		{
-			get { return System.Diagnostics.Process.GetProcessById(Id).MainWindowTitle; }
-		}
+		public string Title => System.Diagnostics.Process.GetProcessById(Id).MainWindowTitle;
 
-		public string DisplayText
-		{
-			get { return GetDisplayText(); }
-		}
+		public string DisplayText => GetDisplayText();
 
-		public int Id
-		{
-			get { return BaseProcess.ProcessID; }
-		}
+		public int Id => BaseProcess.ProcessID;
 
 		public void Attach()
 		{
@@ -58,7 +43,7 @@ namespace RyanConrad.AttachToAny.Models
 
 			var appPoolName = BaseProcess.GetAppPoolName();
 
-			return appPoolName == null ? ShortName : "{0} [{1}]".With(ShortName, appPoolName);
+			return appPoolName == null ? ShortName : $"{ShortName} [{appPoolName}]";
 		}
 	}
 }

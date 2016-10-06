@@ -2,9 +2,9 @@
 using System.Linq;
 using System.Reflection;
 
-namespace ArcDev.AttachToAny.Extensions
+namespace ArcDev.AnotherAttachToAny.Extensions
 {
-	public static partial class AttachToAnyExtensions
+	public static partial class AnotherAttachToAnyExtensions
 	{
 		/// <summary>
 		/// Gets the custom attribute.

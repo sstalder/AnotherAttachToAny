@@ -4,10 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using ArcDev.AttachToAny.Models;
+using ArcDev.AnotherAttachToAny.Models;
 using EnvDTE;
 
-namespace ArcDev.AttachToAny.Dialog
+namespace ArcDev.AnotherAttachToAny.Dialog
 {
 	/// <summary>
 	/// Interaction logic for ProcessSelectionWindow.xaml

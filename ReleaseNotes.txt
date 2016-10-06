@@ -1,5 +1,5 @@
 1.0.7
-	- Forked from Ryan Conrad's https://github.com/camalot/AttachToAny
+	- Forked from Ryan Conrad's https://github.com/camalot/AnotherAttachToAny
 	- renamed to AnotherAttachToAny
 	- added support for treating ProcessNames as regular expression
 	- added support for maching on process owner (aka Username); including treating the value as a regular expression
@@ -25,7 +25,7 @@
 
 1.0.1
 	- bug fix for items that are removed still showing in the menu
-	- cleaner menu system. Items are now a submenu of Tools -> AttachToAny
+	- cleaner menu system. Items are now a submenu of Tools -> AnotherAttachToAny
 
 1.0
 	- Initial release.

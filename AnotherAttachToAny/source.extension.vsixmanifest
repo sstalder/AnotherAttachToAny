@@ -4,7 +4,7 @@
 		<Identity Id="9071916a-d034-41ea-bc44-65d10858bb02" Version="1.0.6" Language="en-US" Publisher="ArcDev" />
 		<DisplayName>AnotherAttachToAny</DisplayName>
 		<Description xml:space="preserve">Attach Visual Studio to any running process. Configure up to 20 shortcuts for attaching Visual Studio debugger to.
-(Forked from Ryan Conrad's AttachToAny https://github.com/camalot/AttachToAny)
+(Forked from Ryan Conrad's AnotherAttachToAny https://github.com/camalot/AnotherAttachToAny)
 </Description>
 		<MoreInfo>https://github.com/arcdev/AnotherAttachToAny</MoreInfo>
 		<License>LICENSE.txt</License>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ArcDev.AttachToAny.Models;
+using ArcDev.AnotherAttachToAny.Models;
 
-namespace ArcDev.AttachToAny.Options
+namespace ArcDev.AnotherAttachToAny.Options
 {
 	internal static class ATASettings
 	{

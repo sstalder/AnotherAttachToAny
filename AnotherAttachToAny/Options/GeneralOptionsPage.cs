@@ -5,14 +5,14 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing.Design;
 using System.Linq;
-using ArcDev.AttachToAny.Components;
-using ArcDev.AttachToAny.Extensions;
-using ArcDev.AttachToAny.Models;
+using ArcDev.AnotherAttachToAny.Components;
+using ArcDev.AnotherAttachToAny.Extensions;
+using ArcDev.AnotherAttachToAny.Models;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ArcDev.AttachToAny.Options
+namespace ArcDev.AnotherAttachToAny.Options
 {
 	public class GeneralOptionsPage : DialogPage
 	{
@@ -53,7 +53,7 @@ namespace ArcDev.AttachToAny.Options
 			var items = new List<AttachDescriptor>();
 			try
 			{
-				var package = GetServiceSafe<AttachToAnyPackage>();
+				var package = GetServiceSafe<AnotherAttachToAnyPackage>();
 				Debug.Assert(package != null, "No package service; we cannot load settings");
 				using (var rootKey = package.UserRegistryRoot)
 				{
@@ -110,7 +110,7 @@ namespace ArcDev.AttachToAny.Options
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
 		public override void SaveSettingsToStorage()
 		{
-			var package = GetServiceSafe<AttachToAnyPackage>();
+			var package = GetServiceSafe<AnotherAttachToAnyPackage>();
 			Debug.Assert(package != null, "No package service; we cannot load settings");
 			using (var rootKey = package.UserRegistryRoot)
 			{

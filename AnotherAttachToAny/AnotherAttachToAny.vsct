@@ -2,7 +2,7 @@
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<Extern href="stdidcmd.h"/>
 	<Extern href="vsshlids.h"/>
-	<Commands package="guidAttachToAnyPkg">
+	<Commands package="guidAnotherAttachToAnyPkg">
 		<Groups>
 			<!-- The top level group that is added to the tools menu -->
 			<Group guid="guidAttachToTopLevelMenuGroup" id="AttachToTopLevelMenuGroup" priority="0x000">
@@ -11,255 +11,255 @@
 
 			<!-- The Group that lives as a child to the TLG (TopLevelGroup) -->
 			<!-- all the items are added to this -->
-			<Group guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup" priority="0x100">
-				<Parent guid="guidAttachToAnyCmdGroup" id="idAttachToAnyMain"/>
+			<Group guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup" priority="0x100">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="idAnotherAttachToAnyMain"/>
 			</Group>
 
-			<Group guid="guidAttachToAnySettingsGroup" id="AttachToAnySettingsGroup" priority="0x100">
-				<Parent guid="guidAttachToAnyCmdGroup" id="idAttachToAnyMain"/>
+			<Group guid="guidAnotherAttachToAnySettingsGroup" id="AnotherAttachToAnySettingsGroup" priority="0x100">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="idAnotherAttachToAnyMain"/>
 			</Group>
 		</Groups>
 
 		<Menus>
 
 			<!-- This menu is added to the TLG (TopLevelGroup) -->
-			<Menu guid="guidAttachToAnyCmdGroup" id="idAttachToAnyMain" priority="0x000" type="Menu">
+			<Menu guid="guidAnotherAttachToAnyCmdGroup" id="idAnotherAttachToAnyMain" priority="0x000" type="Menu">
 				<Parent guid="guidAttachToTopLevelMenuGroup" id="AttachToTopLevelMenuGroup"/>
 				<Strings>
-					<ButtonText>&amp;AttachToAny</ButtonText>
+					<ButtonText>&amp;AnotherAttachToAny</ButtonText>
 				</Strings>
 			</Menu>
 		</Menus>
 
 		<Buttons>
 
-			<Button guid="guidAttachToAnySettingsGroup" id="cmdidAttachToAny" priority="0x1001" type="Button">
-				<Parent guid="guidAttachToAnySettingsGroup" id="AttachToAnySettingsGroup"/>
+			<Button guid="guidAnotherAttachToAnySettingsGroup" id="cmdidAnotherAttachToAny" priority="0x1001" type="Button">
+				<Parent guid="guidAnotherAttachToAnySettingsGroup" id="AnotherAttachToAnySettingsGroup"/>
 				<Strings>
-					<CommandName>cmdidAttachToAny</CommandName>
-					<ButtonText>AttachToAny Settings</ButtonText>
+					<CommandName>cmdidAnotherAttachToAny</CommandName>
+					<ButtonText>AnotherAttachToAny Settings</ButtonText>
 				</Strings>
 			</Button>
 
 
 			<!-- 1 - 10 -->
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny001" priority="0x0001" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny001" priority="0x0001" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny001</CommandName>
+					<CommandName>cmdidAnotherAttachToAny001</CommandName>
 					<ButtonText>Another Attach To Any 001</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny002" priority="0x0002" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny002" priority="0x0002" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny002</CommandName>
+					<CommandName>cmdidAnotherAttachToAny002</CommandName>
 					<ButtonText>Another Attach To Any 002</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny003" priority="0x0003" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny003" priority="0x0003" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny003</CommandName>
+					<CommandName>cmdidAnotherAttachToAny003</CommandName>
 					<ButtonText>Another Attach To Any 003</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny004" priority="0x0004" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny004" priority="0x0004" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny004</CommandName>
+					<CommandName>cmdidAnotherAttachToAny004</CommandName>
 					<ButtonText>Another Attach To Any 004</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny005" priority="0x0005" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny005" priority="0x0005" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny005</CommandName>
+					<CommandName>cmdidAnotherAttachToAny005</CommandName>
 					<ButtonText>Another Attach To Any 005</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny006" priority="0x0006" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny006" priority="0x0006" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny006</CommandName>
+					<CommandName>cmdidAnotherAttachToAny006</CommandName>
 					<ButtonText>Another Attach To Any 006</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny007" priority="0x0007" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny007" priority="0x0007" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny007</CommandName>
+					<CommandName>cmdidAnotherAttachToAny007</CommandName>
 					<ButtonText>Another Attach To Any 007</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny008" priority="0x0008" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny008" priority="0x0008" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny008</CommandName>
+					<CommandName>cmdidAnotherAttachToAny008</CommandName>
 					<ButtonText>Another Attach To Any 008</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny009" priority="0x0009" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny009" priority="0x0009" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny009</CommandName>
+					<CommandName>cmdidAnotherAttachToAny009</CommandName>
 					<ButtonText>Another Attach To Any 009</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny010" priority="0x0010" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny010" priority="0x0010" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny010</CommandName>
+					<CommandName>cmdidAnotherAttachToAny010</CommandName>
 					<ButtonText>Another Attach To Any 010</ButtonText>
 				</Strings>
 			</Button>
 
 			<!-- 11 - 20 -->
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny011" priority="0x0011" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny011" priority="0x0011" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny011</CommandName>
+					<CommandName>cmdidAnotherAttachToAny011</CommandName>
 					<ButtonText>Another Attach To Any 011</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny012" priority="0x0012" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny012" priority="0x0012" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny012</CommandName>
+					<CommandName>cmdidAnotherAttachToAny012</CommandName>
 					<ButtonText>Another Attach To Any 012</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny013" priority="0x0013" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny013" priority="0x0013" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny013</CommandName>
+					<CommandName>cmdidAnotherAttachToAny013</CommandName>
 					<ButtonText>Another Attach To Any 013</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny014" priority="0x0014" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny014" priority="0x0014" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny014</CommandName>
+					<CommandName>cmdidAnotherAttachToAny014</CommandName>
 					<ButtonText>Another Attach To Any 014</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny015" priority="0x0015" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny015" priority="0x0015" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny015</CommandName>
+					<CommandName>cmdidAnotherAttachToAny015</CommandName>
 					<ButtonText>Another Attach To Any 015</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny016" priority="0x0016" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny016" priority="0x0016" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny016</CommandName>
+					<CommandName>cmdidAnotherAttachToAny016</CommandName>
 					<ButtonText>Another Attach To Any 016</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny017" priority="0x0017" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny017" priority="0x0017" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny017</CommandName>
+					<CommandName>cmdidAnotherAttachToAny017</CommandName>
 					<ButtonText>Another Attach To Any 017</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny018" priority="0x0018" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny018" priority="0x0018" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny018</CommandName>
+					<CommandName>cmdidAnotherAttachToAny018</CommandName>
 					<ButtonText>Another Attach To Any 018</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny019" priority="0x0019" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny019" priority="0x0019" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny019</CommandName>
+					<CommandName>cmdidAnotherAttachToAny019</CommandName>
 					<ButtonText>Another Attach To Any 019</ButtonText>
 				</Strings>
 			</Button>
 
-			<Button guid="guidAttachToAnyCmdGroup" id="cmdidAttachToAny020" priority="0x0020" type="Button">
-				<Parent guid="guidAttachToAnyCmdGroup" id="AttachToAnyMenuGroup"/>
+			<Button guid="guidAnotherAttachToAnyCmdGroup" id="cmdidAnotherAttachToAny020" priority="0x0020" type="Button">
+				<Parent guid="guidAnotherAttachToAnyCmdGroup" id="AnotherAttachToAnyMenuGroup"/>
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<CommandFlag>TextChanges</CommandFlag>
 				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
-					<CommandName>cmdidAttachToAny020</CommandName>
+					<CommandName>cmdidAnotherAttachToAny020</CommandName>
 					<ButtonText>Another Attach To Any 020</ButtonText>
 				</Strings>
 			</Button>
@@ -271,76 +271,76 @@
 
 	<Symbols>
 		<!-- This is the package guid. -->
-		<GuidSymbol name="guidAttachToAnyPkg" value="{dedbee85-faec-4043-8d6c-4b71feb0f1ff}" />
+		<GuidSymbol name="guidAnotherAttachToAnyPkg" value="{dedbee85-faec-4043-8d6c-4b71feb0f1ff}" />
 
 		<GuidSymbol name="guidAttachToTopLevelMenuGroup" value="{ed70d305-d98d-4be5-8ac3-99355b4c1a24}">
 			<IDSymbol name="AttachToTopLevelMenuGroup" value="0x01002"/>
 		</GuidSymbol>
 
-		<GuidSymbol name="guidAttachToAnySettingsGroup" value="{6e865d89-ecaa-4f6d-9e8e-53d9ab6660b8}">
-			<IDSymbol name="AttachToAnySettingsGroup" value="0x1003"/>
+		<GuidSymbol name="guidAnotherAttachToAnySettingsGroup" value="{6e865d89-ecaa-4f6d-9e8e-53d9ab6660b8}">
+			<IDSymbol name="AnotherAttachToAnySettingsGroup" value="0x1003"/>
 
-			<IDSymbol name="cmdidAttachToAny" value="0x0100" />
+			<IDSymbol name="cmdidAnotherAttachToAny" value="0x0100" />
 		</GuidSymbol>
 
 		<!-- This is the guid used to group the menu commands together -->
-		<GuidSymbol name="guidAttachToAnyCmdGroup" value="{8220136f-986d-4736-bed4-be2748321f5e}">
-			<IDSymbol name="idAttachToAnyMain" value="0x0101" />
-			<IDSymbol name="AttachToAnyMenuGroup" value="0x1020" />
+		<GuidSymbol name="guidAnotherAttachToAnyCmdGroup" value="{8220136f-986d-4736-bed4-be2748321f5e}">
+			<IDSymbol name="idAnotherAttachToAnyMain" value="0x0101" />
+			<IDSymbol name="AnotherAttachToAnyMenuGroup" value="0x1020" />
 
 			<!-- Dynamic Items -->
-			<IDSymbol name="cmdidAttachToAny001" value="0x0200" />
-			<IDSymbol name="cmdidAttachToAny002" value="0x0201" />
-			<IDSymbol name="cmdidAttachToAny003" value="0x0202" />
-			<IDSymbol name="cmdidAttachToAny004" value="0x0203" />
-			<IDSymbol name="cmdidAttachToAny005" value="0x0204" />
-			<IDSymbol name="cmdidAttachToAny006" value="0x0205" />
-			<IDSymbol name="cmdidAttachToAny007" value="0x0206" />
-			<IDSymbol name="cmdidAttachToAny008" value="0x0207" />
-			<IDSymbol name="cmdidAttachToAny009" value="0x0208" />
-			<IDSymbol name="cmdidAttachToAny010" value="0x0209" />
-			<IDSymbol name="cmdidAttachToAny011" value="0x0210" />
-			<IDSymbol name="cmdidAttachToAny012" value="0x0211" />
-			<IDSymbol name="cmdidAttachToAny013" value="0x0212" />
-			<IDSymbol name="cmdidAttachToAny014" value="0x0213" />
-			<IDSymbol name="cmdidAttachToAny015" value="0x0214" />
-			<IDSymbol name="cmdidAttachToAny016" value="0x0215" />
-			<IDSymbol name="cmdidAttachToAny017" value="0x0216" />
-			<IDSymbol name="cmdidAttachToAny018" value="0x0217" />
-			<IDSymbol name="cmdidAttachToAny019" value="0x0218" />
-			<IDSymbol name="cmdidAttachToAny020" value="0x0219" />
+			<IDSymbol name="cmdidAnotherAttachToAny001" value="0x0200" />
+			<IDSymbol name="cmdidAnotherAttachToAny002" value="0x0201" />
+			<IDSymbol name="cmdidAnotherAttachToAny003" value="0x0202" />
+			<IDSymbol name="cmdidAnotherAttachToAny004" value="0x0203" />
+			<IDSymbol name="cmdidAnotherAttachToAny005" value="0x0204" />
+			<IDSymbol name="cmdidAnotherAttachToAny006" value="0x0205" />
+			<IDSymbol name="cmdidAnotherAttachToAny007" value="0x0206" />
+			<IDSymbol name="cmdidAnotherAttachToAny008" value="0x0207" />
+			<IDSymbol name="cmdidAnotherAttachToAny009" value="0x0208" />
+			<IDSymbol name="cmdidAnotherAttachToAny010" value="0x0209" />
+			<IDSymbol name="cmdidAnotherAttachToAny011" value="0x0210" />
+			<IDSymbol name="cmdidAnotherAttachToAny012" value="0x0211" />
+			<IDSymbol name="cmdidAnotherAttachToAny013" value="0x0212" />
+			<IDSymbol name="cmdidAnotherAttachToAny014" value="0x0213" />
+			<IDSymbol name="cmdidAnotherAttachToAny015" value="0x0214" />
+			<IDSymbol name="cmdidAnotherAttachToAny016" value="0x0215" />
+			<IDSymbol name="cmdidAnotherAttachToAny017" value="0x0216" />
+			<IDSymbol name="cmdidAnotherAttachToAny018" value="0x0217" />
+			<IDSymbol name="cmdidAnotherAttachToAny019" value="0x0218" />
+			<IDSymbol name="cmdidAnotherAttachToAny020" value="0x0219" />
 
 
-			<IDSymbol name="cmdidAttachToAny021" value="0x0220" />
-			<IDSymbol name="cmdidAttachToAny022" value="0x0221" />
-			<IDSymbol name="cmdidAttachToAny023" value="0x0222" />
-			<IDSymbol name="cmdidAttachToAny024" value="0x0223" />
-			<IDSymbol name="cmdidAttachToAny025" value="0x0224" />
-			<IDSymbol name="cmdidAttachToAny026" value="0x0225" />
-			<IDSymbol name="cmdidAttachToAny027" value="0x0226" />
-			<IDSymbol name="cmdidAttachToAny028" value="0x0227" />
-			<IDSymbol name="cmdidAttachToAny029" value="0x0228" />
-			<IDSymbol name="cmdidAttachToAny030" value="0x0229" />
-			<IDSymbol name="cmdidAttachToAny031" value="0x0230" />
-			<IDSymbol name="cmdidAttachToAny032" value="0x0231" />
-			<IDSymbol name="cmdidAttachToAny033" value="0x0232" />
-			<IDSymbol name="cmdidAttachToAny034" value="0x0233" />
-			<IDSymbol name="cmdidAttachToAny035" value="0x0234" />
-			<IDSymbol name="cmdidAttachToAny036" value="0x0235" />
-			<IDSymbol name="cmdidAttachToAny037" value="0x0236" />
-			<IDSymbol name="cmdidAttachToAny038" value="0x0237" />
-			<IDSymbol name="cmdidAttachToAny039" value="0x0238" />
-			<IDSymbol name="cmdidAttachToAny040" value="0x0239" />
-			<IDSymbol name="cmdidAttachToAny041" value="0x0240" />
-			<IDSymbol name="cmdidAttachToAny042" value="0x0241" />
-			<IDSymbol name="cmdidAttachToAny043" value="0x0242" />
-			<IDSymbol name="cmdidAttachToAny044" value="0x0243" />
-			<IDSymbol name="cmdidAttachToAny045" value="0x0244" />
-			<IDSymbol name="cmdidAttachToAny046" value="0x0245" />
-			<IDSymbol name="cmdidAttachToAny047" value="0x0246" />
-			<IDSymbol name="cmdidAttachToAny048" value="0x0247" />
-			<IDSymbol name="cmdidAttachToAny049" value="0x0248" />
-			<IDSymbol name="cmdidAttachToAny050" value="0x0249" />
+			<IDSymbol name="cmdidAnotherAttachToAny021" value="0x0220" />
+			<IDSymbol name="cmdidAnotherAttachToAny022" value="0x0221" />
+			<IDSymbol name="cmdidAnotherAttachToAny023" value="0x0222" />
+			<IDSymbol name="cmdidAnotherAttachToAny024" value="0x0223" />
+			<IDSymbol name="cmdidAnotherAttachToAny025" value="0x0224" />
+			<IDSymbol name="cmdidAnotherAttachToAny026" value="0x0225" />
+			<IDSymbol name="cmdidAnotherAttachToAny027" value="0x0226" />
+			<IDSymbol name="cmdidAnotherAttachToAny028" value="0x0227" />
+			<IDSymbol name="cmdidAnotherAttachToAny029" value="0x0228" />
+			<IDSymbol name="cmdidAnotherAttachToAny030" value="0x0229" />
+			<IDSymbol name="cmdidAnotherAttachToAny031" value="0x0230" />
+			<IDSymbol name="cmdidAnotherAttachToAny032" value="0x0231" />
+			<IDSymbol name="cmdidAnotherAttachToAny033" value="0x0232" />
+			<IDSymbol name="cmdidAnotherAttachToAny034" value="0x0233" />
+			<IDSymbol name="cmdidAnotherAttachToAny035" value="0x0234" />
+			<IDSymbol name="cmdidAnotherAttachToAny036" value="0x0235" />
+			<IDSymbol name="cmdidAnotherAttachToAny037" value="0x0236" />
+			<IDSymbol name="cmdidAnotherAttachToAny038" value="0x0237" />
+			<IDSymbol name="cmdidAnotherAttachToAny039" value="0x0238" />
+			<IDSymbol name="cmdidAnotherAttachToAny040" value="0x0239" />
+			<IDSymbol name="cmdidAnotherAttachToAny041" value="0x0240" />
+			<IDSymbol name="cmdidAnotherAttachToAny042" value="0x0241" />
+			<IDSymbol name="cmdidAnotherAttachToAny043" value="0x0242" />
+			<IDSymbol name="cmdidAnotherAttachToAny044" value="0x0243" />
+			<IDSymbol name="cmdidAnotherAttachToAny045" value="0x0244" />
+			<IDSymbol name="cmdidAnotherAttachToAny046" value="0x0245" />
+			<IDSymbol name="cmdidAnotherAttachToAny047" value="0x0246" />
+			<IDSymbol name="cmdidAnotherAttachToAny048" value="0x0247" />
+			<IDSymbol name="cmdidAnotherAttachToAny049" value="0x0248" />
+			<IDSymbol name="cmdidAnotherAttachToAny050" value="0x0249" />
 		</GuidSymbol>
 
 		<GuidSymbol name="guidImages" value="{179fb63a-8d1b-4cb8-9f29-61c256705f3f}" >

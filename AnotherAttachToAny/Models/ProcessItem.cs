@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using ArcDev.AttachToAny.Extensions;
+using ArcDev.AnotherAttachToAny.Extensions;
 using EnvDTE;
 
-namespace ArcDev.AttachToAny.Models
+namespace ArcDev.AnotherAttachToAny.Models
 {
 	public class ProcessItem
 	{

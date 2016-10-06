@@ -5,9 +5,9 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Shell;
-using ArcDev.AttachToAny.Components;
+using ArcDev.AnotherAttachToAny.Components;
 
-namespace ArcDev.AttachToAny.Models
+namespace ArcDev.AnotherAttachToAny.Models
 {
 	[DisplayName("Attach Descriptor")]
 	public class AttachDescriptor

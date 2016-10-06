@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.Shell.Interop;
 
-namespace ArcDev.AttachToAny.Extensions
+namespace ArcDev.AnotherAttachToAny.Extensions
 {
-	public static partial class AttachToAnyExtensions
+	public static partial class AnotherAttachToAnyExtensions
 	{
 		public static string ReadSettingString(this IVsSettingsReader reader, string keyFormat, int index)
 		{

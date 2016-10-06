@@ -5,9 +5,9 @@ using System.Security.Principal;
 using EnvDTE;
 using Microsoft.Web.Administration;
 
-namespace ArcDev.AttachToAny.Extensions
+namespace ArcDev.AnotherAttachToAny.Extensions
 {
-	public static partial class AttachToAnyExtensions
+	public static partial class AnotherAttachToAnyExtensions
 	{
 		private static readonly Lazy<ServerManager> ServerManagerLazy = new Lazy<ServerManager>(() => new ServerManager());
 

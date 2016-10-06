@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace ArcDev.AttachToAny.Components
+namespace ArcDev.AnotherAttachToAny.Components
 {
 	// ReSharper disable once InconsistentNaming - we're converting an IList so this type name makes sense
 	internal class IListTypeConverter : TypeConverter

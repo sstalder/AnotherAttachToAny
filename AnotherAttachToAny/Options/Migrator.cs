@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using ArcDev.AttachToAny.Extensions;
+using ArcDev.AnotherAttachToAny.Extensions;
 using Microsoft.Win32;
 
-namespace ArcDev.AttachToAny.Options
+namespace ArcDev.AnotherAttachToAny.Options
 {
 	/// <summary>
 	/// This is a "fix" for screw ups...

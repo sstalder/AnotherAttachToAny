@@ -1,8 +1,8 @@
 ﻿using Microsoft.Win32;
 
-namespace ArcDev.AttachToAny.Extensions
+namespace ArcDev.AnotherAttachToAny.Extensions
 {
-	public static partial class AttachToAnyExtensions
+	public static partial class AnotherAttachToAnyExtensions
 	{
 		public static string GetStringValue(this RegistryKey key, string keyFormat, int index)
 		{

@@ -6,7 +6,7 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace ArcDev.AttachToAny.Components
+namespace ArcDev.AnotherAttachToAny.Components
 {
 	/// <summary>
 	/// A dropdown that allows a user to enter multiple lines of strings, each line is then converted in to a collection.

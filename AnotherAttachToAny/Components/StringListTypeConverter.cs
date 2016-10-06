@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 
-namespace ArcDev.AttachToAny.Components
+namespace ArcDev.AnotherAttachToAny.Components
 {
 	/// <summary>
 	/// Converts a string to a collection of strings and back to a string.

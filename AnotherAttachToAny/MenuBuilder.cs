@@ -3,17 +3,17 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.VisualStudio.Shell;
-using ArcDev.AttachToAny.Components;
-using ArcDev.AttachToAny.Extensions;
-using ArcDev.AttachToAny.Models;
-using ArcDev.AttachToAny.Options;
+using ArcDev.AnotherAttachToAny.Components;
+using ArcDev.AnotherAttachToAny.Extensions;
+using ArcDev.AnotherAttachToAny.Models;
+using ArcDev.AnotherAttachToAny.Options;
 using Process = EnvDTE.Process;
 
-namespace ArcDev.AttachToAny
+namespace ArcDev.AnotherAttachToAny
 {
 	internal class MenuBuilder
 	{
-		private const int BaseAttachListId = (int) ATAConstants.cmdidAttachToAnyDynamicStart;
+		private const int BaseAttachListId = (int) ATAConstants.cmdidAnotherAttachToAnyDynamicStart;
 
 		public MenuBuilder(GeneralOptionsPage optionsPage)
 		{
@@ -46,7 +46,7 @@ namespace ArcDev.AttachToAny
 				return;
 			}
 
-			var commandIdentifier = new CommandID(ATAGuids.guidAttachToAnyCmdGroup, commandId);
+			var commandIdentifier = new CommandID(ATAGuids.guidAnotherAttachToAnyCmdGroup, commandId);
 			var existing = mcs.FindCommand(commandIdentifier);
 			if (existing != null)
 			{
@@ -81,7 +81,7 @@ namespace ArcDev.AttachToAny
 				return;
 			}
 
-			AttachToAnyPackage.ShowProcessManagerDialog(procList);
+			AnotherAttachToAnyPackage.ShowProcessManagerDialog(procList);
 		}
 
 		private bool IsMatch(AttachDescriptor descriptor, Process process)

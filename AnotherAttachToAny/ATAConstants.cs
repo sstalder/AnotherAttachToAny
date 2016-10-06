@@ -1,7 +1,7 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
 
-namespace ArcDev.AttachToAny
+namespace ArcDev.AnotherAttachToAny
 {
 	internal static class ATAConstants
 	{
@@ -23,66 +23,66 @@ namespace ArcDev.AttachToAny
 
 		public const uint MaxCommands = 20;
 
-		public const uint idAttachToAnyMain = 0x0101;
+		public const uint idAnotherAttachToAnyMain = 0x0101;
 
-		public const uint cmdidAttachToAny = 0x100;
-		public const uint cmdidAttachToAnyToolWindow = 0x101;
+		public const uint cmdidAnotherAttachToAny = 0x100;
+		public const uint cmdidAnotherAttachToAnyToolWindow = 0x101;
 
-		public const uint cmdidAttachToAnyDynamicStart = 0x200;
+		public const uint cmdidAnotherAttachToAnyDynamicStart = 0x200;
 
-		public const uint cmdidAttachToAny001 = 0x200;
-		public const uint cmdidAttachToAny002 = 0x201;
-		public const uint cmdidAttachToAny003 = 0x202;
-		public const uint cmdidAttachToAny004 = 0x203;
-		public const uint cmdidAttachToAny005 = 0x204;
-		public const uint cmdidAttachToAny006 = 0x205;
-		public const uint cmdidAttachToAny007 = 0x206;
-		public const uint cmdidAttachToAny008 = 0x207;
-		public const uint cmdidAttachToAny009 = 0x208;
-		public const uint cmdidAttachToAny010 = 0x209;
+		public const uint cmdidAnotherAttachToAny001 = 0x200;
+		public const uint cmdidAnotherAttachToAny002 = 0x201;
+		public const uint cmdidAnotherAttachToAny003 = 0x202;
+		public const uint cmdidAnotherAttachToAny004 = 0x203;
+		public const uint cmdidAnotherAttachToAny005 = 0x204;
+		public const uint cmdidAnotherAttachToAny006 = 0x205;
+		public const uint cmdidAnotherAttachToAny007 = 0x206;
+		public const uint cmdidAnotherAttachToAny008 = 0x207;
+		public const uint cmdidAnotherAttachToAny009 = 0x208;
+		public const uint cmdidAnotherAttachToAny010 = 0x209;
 
-		public const uint cmdidAttachToAny011 = 0x210;
-		public const uint cmdidAttachToAny012 = 0x211;
-		public const uint cmdidAttachToAny013 = 0x212;
-		public const uint cmdidAttachToAny014 = 0x213;
-		public const uint cmdidAttachToAny015 = 0x214;
-		public const uint cmdidAttachToAny016 = 0x215;
-		public const uint cmdidAttachToAny017 = 0x216;
-		public const uint cmdidAttachToAny018 = 0x217;
-		public const uint cmdidAttachToAny019 = 0x218;
-		public const uint cmdidAttachToAny020 = 0x219;
+		public const uint cmdidAnotherAttachToAny011 = 0x210;
+		public const uint cmdidAnotherAttachToAny012 = 0x211;
+		public const uint cmdidAnotherAttachToAny013 = 0x212;
+		public const uint cmdidAnotherAttachToAny014 = 0x213;
+		public const uint cmdidAnotherAttachToAny015 = 0x214;
+		public const uint cmdidAnotherAttachToAny016 = 0x215;
+		public const uint cmdidAnotherAttachToAny017 = 0x216;
+		public const uint cmdidAnotherAttachToAny018 = 0x217;
+		public const uint cmdidAnotherAttachToAny019 = 0x218;
+		public const uint cmdidAnotherAttachToAny020 = 0x219;
 
-		public const uint cmdidAttachToAny021 = 0x220;
-		public const uint cmdidAttachToAny022 = 0x221;
-		public const uint cmdidAttachToAny023 = 0x222;
-		public const uint cmdidAttachToAny024 = 0x223;
-		public const uint cmdidAttachToAny025 = 0x224;
-		public const uint cmdidAttachToAny026 = 0x225;
-		public const uint cmdidAttachToAny027 = 0x226;
-		public const uint cmdidAttachToAny028 = 0x227;
-		public const uint cmdidAttachToAny029 = 0x228;
-		public const uint cmdidAttachToAny030 = 0x229;
+		public const uint cmdidAnotherAttachToAny021 = 0x220;
+		public const uint cmdidAnotherAttachToAny022 = 0x221;
+		public const uint cmdidAnotherAttachToAny023 = 0x222;
+		public const uint cmdidAnotherAttachToAny024 = 0x223;
+		public const uint cmdidAnotherAttachToAny025 = 0x224;
+		public const uint cmdidAnotherAttachToAny026 = 0x225;
+		public const uint cmdidAnotherAttachToAny027 = 0x226;
+		public const uint cmdidAnotherAttachToAny028 = 0x227;
+		public const uint cmdidAnotherAttachToAny029 = 0x228;
+		public const uint cmdidAnotherAttachToAny030 = 0x229;
 
-		public const uint cmdidAttachToAny031 = 0x230;
-		public const uint cmdidAttachToAny032 = 0x231;
-		public const uint cmdidAttachToAny033 = 0x232;
-		public const uint cmdidAttachToAny034 = 0x233;
-		public const uint cmdidAttachToAny035 = 0x234;
-		public const uint cmdidAttachToAny036 = 0x235;
-		public const uint cmdidAttachToAny037 = 0x236;
-		public const uint cmdidAttachToAny038 = 0x237;
-		public const uint cmdidAttachToAny039 = 0x238;
-		public const uint cmdidAttachToAny040 = 0x239;
+		public const uint cmdidAnotherAttachToAny031 = 0x230;
+		public const uint cmdidAnotherAttachToAny032 = 0x231;
+		public const uint cmdidAnotherAttachToAny033 = 0x232;
+		public const uint cmdidAnotherAttachToAny034 = 0x233;
+		public const uint cmdidAnotherAttachToAny035 = 0x234;
+		public const uint cmdidAnotherAttachToAny036 = 0x235;
+		public const uint cmdidAnotherAttachToAny037 = 0x236;
+		public const uint cmdidAnotherAttachToAny038 = 0x237;
+		public const uint cmdidAnotherAttachToAny039 = 0x238;
+		public const uint cmdidAnotherAttachToAny040 = 0x239;
 
-		public const uint cmdidAttachToAny041 = 0x240;
-		public const uint cmdidAttachToAny042 = 0x241;
-		public const uint cmdidAttachToAny043 = 0x242;
-		public const uint cmdidAttachToAny044 = 0x243;
-		public const uint cmdidAttachToAny045 = 0x244;
-		public const uint cmdidAttachToAny046 = 0x245;
-		public const uint cmdidAttachToAny047 = 0x246;
-		public const uint cmdidAttachToAny048 = 0x247;
-		public const uint cmdidAttachToAny049 = 0x248;
-		public const uint cmdidAttachToAny050 = 0x249;
+		public const uint cmdidAnotherAttachToAny041 = 0x240;
+		public const uint cmdidAnotherAttachToAny042 = 0x241;
+		public const uint cmdidAnotherAttachToAny043 = 0x242;
+		public const uint cmdidAnotherAttachToAny044 = 0x243;
+		public const uint cmdidAnotherAttachToAny045 = 0x244;
+		public const uint cmdidAnotherAttachToAny046 = 0x245;
+		public const uint cmdidAnotherAttachToAny047 = 0x246;
+		public const uint cmdidAnotherAttachToAny048 = 0x247;
+		public const uint cmdidAnotherAttachToAny049 = 0x248;
+		public const uint cmdidAnotherAttachToAny050 = 0x249;
 	}
 }

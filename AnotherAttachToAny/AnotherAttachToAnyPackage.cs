@@ -9,11 +9,11 @@ using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using ArcDev.AttachToAny.Dialog;
-using ArcDev.AttachToAny.Options;
+using ArcDev.AnotherAttachToAny.Dialog;
+using ArcDev.AnotherAttachToAny.Options;
 using Process = EnvDTE.Process;
 
-namespace ArcDev.AttachToAny
+namespace ArcDev.AnotherAttachToAny
 {
 	/// <summary>
 	/// This is the class that implements the package exposed by this assembly.
@@ -33,14 +33,14 @@ namespace ArcDev.AttachToAny
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
 	// This attribute is needed to let the shell know that this package exposes some menus.
 	[ProvideMenuResource("Menus.ctmenu", 1)]
-	[ProvideOptionPage(typeof(GeneralOptionsPage), "AttachToAny", "General", 110, 120, false)]
-	[Guid(ATAGuids.guidAttachToAnyPkgString)]
+	[ProvideOptionPage(typeof(GeneralOptionsPage), "AnotherAttachToAny", "General", 110, 120, false)]
+	[Guid(ATAGuids.guidAnotherAttachToAnyPkgString)]
 	[ProvideAutoLoad(UIContextGuids.NoSolution)]
 	[ProvideAutoLoad(UIContextGuids.SolutionExists)]
 	[ProvideAutoLoad(UIContextGuids.FullScreenMode)]
 	[ProvideAutoLoad(UIContextGuids.DesignMode)]
 	[ProvideAutoLoad(UIContextGuids.Debugging)]
-	public sealed class AttachToAnyPackage : Package
+	public sealed class AnotherAttachToAnyPackage : Package
 	{
 //		/// <summary>
 //		/// Default constructor of the package.
@@ -49,7 +49,7 @@ namespace ArcDev.AttachToAny
 //		/// not sited yet inside Visual Studio environment. The place to do all the other 
 //		/// initialization is the Initialize method.
 //		/// </summary>
-//		public AttachToAnyPackage()
+//		public AnotherAttachToAnyPackage()
 //		{
 //		}
 
@@ -73,10 +73,10 @@ namespace ArcDev.AttachToAny
 				menuBuilder.BuildMenuItems(mcs);
 
 
-				//var main = new OleMenuCommand ( null, new CommandID ( ATAGuids.guidAttachToAnyCmdSet, (int)ATAConstants.cmdidAttachToAnyMainMenu ) );
+				//var main = new OleMenuCommand ( null, new CommandID ( ATAGuids.guidAnotherAttachToAnyCmdSet, (int)ATAConstants.cmdidAnotherAttachToAnyMainMenu ) );
 				//mcs.AddCommand ( main );
 
-				var settings = new OleMenuCommand((s, e) => { ShowOptionPageSafe<GeneralOptionsPage>(); }, new CommandID(ATAGuids.guidAttachToAnySettingsGroup, (int) ATAConstants.cmdidAttachToAny));
+				var settings = new OleMenuCommand((s, e) => { ShowOptionPageSafe<GeneralOptionsPage>(); }, new CommandID(ATAGuids.guidAnotherAttachToAnySettingsGroup, (int) ATAConstants.cmdidAnotherAttachToAny));
 				mcs.AddCommand(settings);
 			}
 		}
@@ -122,7 +122,7 @@ namespace ArcDev.AttachToAny
 			}
 			catch (TargetInvocationException ex)
 			{
-				Debug.WriteLine($"{nameof(AttachToAnyPackage)}:{nameof(ShowProcessManagerDialog)} unhandled exception: {ex}");
+				Debug.WriteLine($"{nameof(AnotherAttachToAnyPackage)}:{nameof(ShowProcessManagerDialog)} unhandled exception: {ex}");
 				ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
 			}
 		}
@@ -135,7 +135,7 @@ namespace ArcDev.AttachToAny
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine($"{nameof(AttachToAnyPackage)}:{nameof(ShowOptionPageSafe)} unhandled exception: {ex}");
+				Debug.WriteLine($"{nameof(AnotherAttachToAnyPackage)}:{nameof(ShowOptionPageSafe)} unhandled exception: {ex}");
 			}
 		}
 
@@ -147,7 +147,7 @@ namespace ArcDev.AttachToAny
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine($"{nameof(AttachToAnyPackage)}:{nameof(GetDialogPageSafe)} unhandled exception: {ex}");
+				Debug.WriteLine($"{nameof(AnotherAttachToAnyPackage)}:{nameof(GetDialogPageSafe)} unhandled exception: {ex}");
 				return default(T);
 			}
 		}

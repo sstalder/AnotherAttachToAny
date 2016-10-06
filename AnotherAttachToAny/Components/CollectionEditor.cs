@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using ArcDev.AttachToAny.Extensions;
+using ArcDev.AnotherAttachToAny.Extensions;
 
-namespace ArcDev.AttachToAny.Components
+namespace ArcDev.AnotherAttachToAny.Components
 {
 	public class CollectionEditor : System.ComponentModel.Design.CollectionEditor
 	{

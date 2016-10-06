@@ -1,75 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Web.Administration;
+﻿using System.IO;
+using EnvDTE;
 using RyanConrad.AttachToAny.Extensions;
 
-namespace RyanConrad.AttachToAny.Models {
-	public class ProcessItem {
-		public ProcessItem ( EnvDTE.Process baseProcess ) {
-			this.BaseProcess = baseProcess;
-
+namespace RyanConrad.AttachToAny.Models
+{
+	public class ProcessItem
+	{
+		public ProcessItem(Process baseProcess)
+		{
+			BaseProcess = baseProcess;
 		}
 
-		public string Name {
-			get {
-				return BaseProcess.Name;
-			}
+		public string Name
+		{
+			get { return BaseProcess.Name; }
 		}
 
-		public string ShortName {
-			get {
-				return Path.GetFileName ( Name );
-			}
+		public string ShortName
+		{
+			get { return Path.GetFileName(Name); }
 		}
 
-		public string Title {
-			get {
-				return Process.GetProcessById ( Id ).MainWindowTitle;
-			}
+		public string Title
+		{
+			get { return System.Diagnostics.Process.GetProcessById(Id).MainWindowTitle; }
 		}
 
-		public string DisplayText {
-			get {
-				return GetDisplayText ( );
-			}
+		public string DisplayText
+		{
+			get { return GetDisplayText(); }
 		}
 
-		public int Id {
-			get {
-				return BaseProcess.ProcessID;
-			}
+		public int Id
+		{
+			get { return BaseProcess.ProcessID; }
 		}
 
-		public void Attach ( ) {
-			BaseProcess.Attach ( );
+		public void Attach()
+		{
+			BaseProcess.Attach();
 		}
 
 
-		public EnvDTE.Process BaseProcess { get; private set; }
+		public Process BaseProcess { get; }
 
-		private string GetDisplayText ( ) {
-			return String.IsNullOrWhiteSpace ( Title ) ? GetShortNameFormatted() : Title;
+		private string GetDisplayText()
+		{
+			return string.IsNullOrWhiteSpace(Title) ? GetShortNameFormatted() : Title;
 		}
 
-		private string GetShortNameFormatted ( ) {
-			if ( String.Compare ( ATAConstants.IIS_PROCESS, ShortName, true ) == 0 ) {
-				var serverManager = new ServerManager ( );
-				var applicationPoolCollection = serverManager.ApplicationPools;
-				var appPool = applicationPoolCollection.FirstOrDefault ( ap => ap.WorkerProcesses.Any ( wp => wp.ProcessId == Id ) );
-				if ( appPool == null ) {
-					return ShortName;
-				}
-
-				return "{0} [{1}]".With ( ShortName, appPool.Name );
-
-			} 
+		private string GetShortNameFormatted()
+		{
+			if (BaseProcess.IsIISWorkerProcess() == false)
+			{
 				return ShortName;
-			
+			}
+
+			var appPoolName = BaseProcess.GetAppPoolName();
+
+			return appPoolName == null ? ShortName : "{0} [{1}]".With(ShortName, appPoolName);
 		}
 	}
 }

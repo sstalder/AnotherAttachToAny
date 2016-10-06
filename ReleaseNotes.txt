@@ -1,3 +1,13 @@
+1.0.7
+	- Forked from Ryan Conrad https://github.com/camalot/AttachToAny
+	- renamed to AnotherAttachToAny
+	- added support for treating ProcessNames as regular expression
+	- added support for maching on process owner (aka Username); including treating the value as a regular expression
+	- added support for maching on AppPool name (for IIS worker processed); including treating the value as a regular expression
+	- general code reformatting
+	- versioned assembly to 1.0.7.0
+	- added shortcut key (A) to top menu item
+
 1.0.6
 	- Visual Studio 2015 support
 

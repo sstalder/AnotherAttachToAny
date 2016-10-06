@@ -1,16 +1,18 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
-using System;
 
-namespace RyanConrad.AttachToAny {
-	static class ATAConstants {
-
+namespace RyanConrad.AttachToAny
+{
+	static class ATAConstants
+	{
 		public const string IIS_PROCESS = "w3wp.exe";
+		public const string ProcessNamesSeparator = ";";
+//		public const string ProcessNamesSeparator = "\t"; // todo: consider processNames seperator as TAB when this is a regex
 
 		public const uint MaxCommands = 20;
 
 		public const uint idAttachToAnyMain = 0x0101;
-	
+
 		public const uint cmdidAttachToAny = 0x100;
 		public const uint cmdidAttachToAnyToolWindow = 0x101;
 
@@ -70,7 +72,5 @@ namespace RyanConrad.AttachToAny {
 		public const uint cmdidAttachToAny048 = 0x247;
 		public const uint cmdidAttachToAny049 = 0x248;
 		public const uint cmdidAttachToAny050 = 0x249;
-
-
 	};
 }

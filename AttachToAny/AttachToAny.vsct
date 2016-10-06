@@ -26,7 +26,7 @@
 			<Menu guid="guidAttachToAnyCmdGroup" id="idAttachToAnyMain" priority="0x000" type="Menu">
 				<Parent guid="guidAttachToTopLevelMenuGroup" id="AttachToTopLevelMenuGroup"/>
 				<Strings>
-					<ButtonText>AttachToAny</ButtonText>
+					<ButtonText>&amp;AttachToAny</ButtonText>
 				</Strings>
 			</Menu>
 		</Menus>

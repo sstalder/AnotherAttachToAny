@@ -3,11 +3,11 @@
 using System;
 
 namespace RyanConrad.AttachToAny {
-	static class ATAGuids {
-		public const string guidAttachToAnyPkgString = "177f0816-76a7-401a-87d5-e793c9def1d1";
+	internal static class ATAGuids {
+		public const string guidAttachToAnyPkgString = "dedbee85-faec-4043-8d6c-4b71feb0f1ff";
 
-		public const string guidAttachToAnyCmdGroupString = "245c3215-3d66-40e8-bafe-29fb71a00061";
-		public const string guidAttachToAnySettingsGroupString = "fe5c3b97-e53f-480d-9ad0-c41238c05731";
+		public const string guidAttachToAnyCmdGroupString = "8220136f-986d-4736-bed4-be2748321f5e";
+		public const string guidAttachToAnySettingsGroupString = "6e865d89-ecaa-4f6d-9e8e-53d9ab6660b8";
 
 		public static readonly Guid guidAttachToAnyCmdGroup = new Guid ( guidAttachToAnyCmdGroupString );
 		public static readonly Guid guidAttachToAnySettingsGroup = new Guid ( guidAttachToAnySettingsGroupString );

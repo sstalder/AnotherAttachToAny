@@ -1,5 +1,5 @@
 1.0.7
-	- Forked from Ryan Conrad's https://github.com/camalot/AnotherAttachToAny
+	- Forked from Ryan Conrad's https://github.com/camalot/AttachToAny
 	- renamed to AnotherAttachToAny
 	- added support for treating ProcessNames as regular expression
 	- added support for maching on process owner (aka Username); including treating the value as a regular expression

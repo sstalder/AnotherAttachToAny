@@ -35,6 +35,9 @@ namespace ArcDev.AnotherAttachToAny
 			{
 				var id = BaseAttachListId + i;
 				var descriptor = OptionsPage.Attachables[i];
+
+				descriptor.Shortcut = (i+1).ToString()[0];
+
 				AddAttachCommand(mcs, id, descriptor);
 			}
 		}

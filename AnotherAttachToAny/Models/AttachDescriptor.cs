@@ -107,6 +107,9 @@ namespace ArcDev.AnotherAttachToAny.Models
 		[Browsable(false)]
 		internal Regex UsernameRegex => _usernameRegexLazy.Value;
 
+		[Browsable(false)]
+		internal char Shortcut { get; set; }
+
 		public override string ToString()
 		{
 			var text = string.IsNullOrWhiteSpace(Name) ?
@@ -115,6 +118,14 @@ namespace ArcDev.AnotherAttachToAny.Models
 						string.Join(",", ProcessNames)
 				)
 				: Name;
+
+			if (Shortcut == '\0')
+			{
+				return text;
+			}
+
+			text = $"&{Shortcut}. {text}";
+
 			return text;
 		}
 	}

@@ -7,3 +7,5 @@ Attach to processes for debugging in Visual Studio.
 Uses combinations of process name, process owner/username, and/or appPool name (for IIS worker processes).
 
 (Forked from Ryan Conrad's [AttachToAny](https://github.com/camalot/AttachToAny))
+
+as of v1.0.9.0 - support for Visual Studio 2017 RC

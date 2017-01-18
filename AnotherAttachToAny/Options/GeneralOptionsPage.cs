@@ -22,7 +22,7 @@ namespace ArcDev.AnotherAttachToAny.Options
 		[TypeConverter(typeof(IListTypeConverter))]
 		[Category("Another Attach To Any")]
 		[LocDisplayName("Attachables")]
-		[Description("The items that can be used to attach to processes for debugging.")]
+		[Description("The items that can be used to attach to processes for debugging. (v" + Constants.Version + ")")]
 		public ReadOnlyCollection<AttachDescriptor> Attachables { get; set; }
 
 		//[Category ( "Another Attach To Any" )]

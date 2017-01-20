@@ -1,6 +1,5 @@
 1.1.0
-	- add Global regex handling property (bool)
-	- add Multi-process match attach handling (First, Last, All, Random, Prompt, None)
+	- added Multi-process match attach handling (First, Last, All, Random, Prompt, None)
 	- removed dependency on Microsoft.VisualStudio.MPF.12.0
 
 1.0.9

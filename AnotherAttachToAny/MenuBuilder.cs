@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using Microsoft.VisualStudio.Shell;
 using ArcDev.AnotherAttachToAny.Components;
 using ArcDev.AnotherAttachToAny.Extensions;
@@ -68,23 +69,40 @@ namespace ArcDev.AnotherAttachToAny
 				return;
 			}
 
-			var procList = OptionsPage.Dte.Debugger.LocalProcesses.Cast<Process>().Where(proc => IsMatch(menu.Descriptor, proc)).ToList();
+			var procList = OptionsPage.Dte.Debugger.LocalProcesses.Cast<Process>().Where(proc => IsMatch(menu.Descriptor, proc)).OrderBy(p => p.ProcessID).ToList();
 
 			if (procList.Count == 0)
 			{
 				return;
 			}
 
-			//todo: GlobalAttachTo: logic for GlobalAttachTo
-
-			// Where there is only 1, or "best choice"
-			if (procList.Count == 1 || !menu.Descriptor.ChooseProcess)
+            // Where there is only 1
+            if (procList.Count == 1)
 			{
 				procList.First().Attach();
 				return;
 			}
 
-			AnotherAttachToAnyPackage.ShowProcessManagerDialog(procList);
+            // multiple matches
+            var multiMatchHandling = menu.Descriptor.MultiMatchHandling != MultiMatchOptions.Global ? menu.Descriptor.MultiMatchHandling : (MultiMatchOptions)OptionsPage.MultipleMatchHandlingDefault;
+            switch (multiMatchHandling)
+		    {
+		        case MultiMatchOptions.None:
+		            MessageBox.Show("Multiple processes found and option is set to attach to None.", "AnotherAttachToAny");
+		            return;
+                case MultiMatchOptions.First:
+                    procList.First().Attach();
+		            return;
+                case MultiMatchOptions.Last:
+                    procList.Last().Attach();
+		            return;
+                case MultiMatchOptions.Prompt:
+                    AnotherAttachToAnyPackage.ShowProcessManagerDialog(procList);
+		            return;
+                case MultiMatchOptions.All:
+                    procList.ForEach(p => p.Attach());
+		            return;
+		    }
 		}
 
 		private bool IsMatch(AttachDescriptor descriptor, Process process)

@@ -13,6 +13,14 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 			return value;
 		}
 
+        public static int ReadSettingLong(this IVsSettingsReader reader, string keyFormat, int index)
+		{
+			var key = string.Format(keyFormat, index);
+			int value;
+			reader.ReadSettingLong(key, out value);
+			return value;
+		}
+
 		public static bool? ReadSettingStringToBoolean(this IVsSettingsReader reader, string keyFormat, int index)
 		{
 			var name = string.Format(keyFormat, index);
@@ -41,6 +49,12 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 			}
 			var name = string.Format(keyFormat, index);
 			writer.WriteSettingString(name, value);
+		}
+
+        public static void WriteSettingLong(this IVsSettingsWriter writer, string keyFormat, int index, int value)
+		{
+			var name = string.Format(keyFormat, index);
+			writer.WriteSettingLong(name, value);
 		}
 
 		public static void WriteSettingString(this IVsSettingsWriter writer, string keyFormat, int index, bool value)

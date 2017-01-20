@@ -1,3 +1,3 @@
-﻿- add Global regex handling property (bool)
-- add Multi-process match attach handling (First, Last, All, Random, Prompt)
-- convert automatic, numeric keyboard shortcut to property
+﻿- convert automatic, numeric keyboard shortcut to property
+- add Global regex handling property (bool)
+- change Prompt/Choose dialog to allow for multiple selections

@@ -5,6 +5,7 @@ using System.Drawing.Design;
 using System.Linq;
 using System.Text.RegularExpressions;
 using ArcDev.AnotherAttachToAny.Components;
+using ArcDev.AnotherAttachToAny.Options;
 using Microsoft.VisualStudio.Shell;
 
 namespace ArcDev.AnotherAttachToAny.Models
@@ -20,7 +21,7 @@ namespace ArcDev.AnotherAttachToAny.Models
 
 			Enabled = true;
 			ProcessNames = new List<string>();
-			ChooseProcess = false;
+            MultiMatchHandling = MultiMatchOptions.Global;
 			IsProcessNamesRegex = false;
 			IsUsernameRegex = false;
 		}
@@ -50,12 +51,19 @@ namespace ArcDev.AnotherAttachToAny.Models
 		[DefaultValue(true)]
 		public bool Enabled { get; set; }
 
-		[DisplayName("Choose which Process")]
-		[LocDisplayName("Choose which Process")]
+//		[DisplayName("Choose which Process")]
+//		[LocDisplayName("Choose which Process")]
+//		[Category("General")]
+//		[Description("Where there are multiple instances of a process, show a dialog that will allow you to choose which process to attach to. Setting to false will use a 'best guess' on which process to attach to.")]
+//		[DefaultValue(false)]
+//		public bool ChooseProcess { get; set; }
+
+        [DisplayName("Handle multiple matches")]
+		[LocDisplayName("Handle multiple matches")]
 		[Category("General")]
-		[Description("Where there are multiple instances of a process, show a dialog that will allow you to choose which process to attach to. Setting to false will use a 'best guess' on which process to attach to.")]
-		[DefaultValue(false)]
-		public bool ChooseProcess { get; set; }
+		[Description("When there are multiple instances of a process, this overrides the default behavior.")]
+        [DefaultValue(MultiMatchOptions.Global)]
+		public MultiMatchOptions MultiMatchHandling { get; set; }
 
 		[DisplayName("Username")]
 		[Category("General")]

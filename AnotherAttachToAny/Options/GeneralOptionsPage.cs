@@ -25,16 +25,14 @@ namespace ArcDev.AnotherAttachToAny.Options
 		[Description("The items that can be used to attach to processes for debugging. (v" + Constants.Version + ")")]
 		public ReadOnlyCollection<AttachDescriptor> Attachables { get; set; }
 
-		//[Category ( "Another Attach To Any" )]
-		//[LocDisplayName ( "Choose which Process" )]
-		//[DisplayName ( "Choose which Process" )]
-		//[Description ( "Where there are multiple instances of a process, show a dialog that will allow you to choose which process to attach to. Setting to false will use a 'best guess' on which process to attach to." )]
-		//[DefaultValue ( false )]
-		//public bool ChooseProcess { get; set; }
+        [Category("Another Attach To Any")]
+        [LocDisplayName("Multiple match default handling")]
+        [Description("Specifies the default behavior for handling multiple matches.")]
+        [DefaultValue(MultiMatchOptionsGlobal.All)]
+        
+        public MultiMatchOptionsGlobal MultipleMatchHandlingDefault { get; set; }
 
-		//todo: GlobalAttachTo: {first, last, all, prompt, random, none} First matching process; Last matching process; All matching processes
-
-		protected override void OnApply(PageApplyEventArgs e)
+	    protected override void OnApply(PageApplyEventArgs e)
 		{
 			if (e.ApplyBehavior == ApplyKind.Apply)
 			{
@@ -63,12 +61,15 @@ namespace ArcDev.AnotherAttachToAny.Options
 					{
 						using (key)
 						{
+						    MultipleMatchHandlingDefault = key.GetEnumValue(ATASettings.Keys.AttachDescriptorDefaultMultipleMatchHandling, 0, MultiMatchOptionsGlobal.All);
+
 							for (var i = 0; i < ATAConstants.MaxCommands; i++)
 							{
 								var descriptorName = string.Format(ATASettings.Keys.AttachDescriptorName, i);
 								if (key.GetValueNames().Any(name => name.Equals(descriptorName, StringComparison.OrdinalIgnoreCase)))
 								{
 									Migrator.IISFix(key, i);
+                                    Migrator.ChooseProcessUpdate(key, i);
 
 									items.Add(new AttachDescriptor
 									{
@@ -76,7 +77,7 @@ namespace ArcDev.AnotherAttachToAny.Options
 										Enabled = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorEnabled, i),
 										ProcessNames = key.GetStringValue(ATASettings.Keys.AttachDescriptorProcessNames, i).Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries),
 										IsProcessNamesRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i),
-										ChooseProcess = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorChooseProcess, i),
+                                        MultiMatchHandling = key.GetEnumValue(ATASettings.Keys.AttachDescriptorMultipleMatchHandling, i, MultiMatchOptions.All),
 										Username = key.GetStringValue(ATASettings.Keys.AttachDescriptorUsername, i),
 										IsUsernameRegex = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i),
 										AppPool = key.GetStringValue(ATASettings.Keys.AttachDescriptorAppPool, i),
@@ -97,7 +98,9 @@ namespace ArcDev.AnotherAttachToAny.Options
 			{
 				Debug.WriteLine(ex.ToString());
 			}
-			if (items.Count == 0)
+
+            MultipleMatchHandlingDefault = MultiMatchOptionsGlobal.All; // default
+            if (items.Count == 0)
 			{
 				items = ATASettings.DefaultAttachables();
 			}
@@ -123,6 +126,8 @@ namespace ArcDev.AnotherAttachToAny.Options
 
 				using (key)
 				{
+                    key.SetValue(ATASettings.Keys.AttachDescriptorDefaultMultipleMatchHandling, MultipleMatchHandlingDefault.ToString());
+
 					for (var i = 0; i < ATAConstants.MaxCommands; i++)
 					{
 						var item = i >= Attachables.Count ? new AttachDescriptor() : Attachables[i];
@@ -145,7 +150,7 @@ namespace ArcDev.AnotherAttachToAny.Options
 							key.SetValue(ATASettings.Keys.AttachDescriptorName, i, item.Name);
 							key.SetValue(ATASettings.Keys.AttachDescriptorEnabled, i, item.Enabled);
 							key.SetValue(ATASettings.Keys.AttachDescriptorProcessNames, i, string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
-							key.SetValue(ATASettings.Keys.AttachDescriptorChooseProcess, i, item.ChooseProcess);
+							key.SetValue(ATASettings.Keys.AttachDescriptorMultipleMatchHandling, i, item.MultiMatchHandling.ToString());
 							key.SetValue(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i, item.IsProcessNamesRegex);
 							key.SetValue(ATASettings.Keys.AttachDescriptorUsername, i, item.Username);
 							key.SetValue(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i, item.IsUsernameRegex);
@@ -165,7 +170,11 @@ namespace ArcDev.AnotherAttachToAny.Options
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
 		public override void LoadSettingsFromXml(IVsSettingsReader reader)
 		{
-			var items = new List<AttachDescriptor>();
+		    int multiMatch;
+            reader.ReadSettingLong(ATASettings.Keys.AttachDescriptorDefaultMultipleMatchHandling, out multiMatch);
+		    MultipleMatchHandlingDefault = multiMatch == 0 ? MultiMatchOptionsGlobal.All: (MultiMatchOptionsGlobal)multiMatch;
+
+            var items = new List<AttachDescriptor>();
 			try
 			{
 				for (var i = 0; i < ATAConstants.MaxCommands; i++)
@@ -174,59 +183,56 @@ namespace ArcDev.AnotherAttachToAny.Options
 					var item = new AttachDescriptor();
 					try
 					{
-						var value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorName, i);
-						if (value != null)
-						{
-							item.Name = value;
-						}
+					    var value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorName, i);
+					    if (value != null)
+					    {
+					        item.Name = value;
+					    }
 
-						var enabled = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorEnabled, i);
-						if (enabled.HasValue)
-						{
-							item.Enabled = enabled.Value;
-						}
+					    var enabled = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorEnabled, i);
+					    if (enabled.HasValue)
+					    {
+					        item.Enabled = enabled.Value;
+					    }
 
-						var parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorChooseProcess, i);
-						if (parsedBool.HasValue)
-						{
-							item.ChooseProcess = parsedBool.Value;
-						}
+					    var multiMatchHandling = reader.ReadSettingLong(ATASettings.Keys.AttachDescriptorMultipleMatchHandling, i);
+					    item.MultiMatchHandling = multiMatchHandling == 0 ? MultiMatchOptions.Global : (MultiMatchOptions)multiMatch;
 
-						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorProcessNames, i);
-						if (value != null)
-						{
-							item.ProcessNames = value.Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries);
-						}
+                        value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorProcessNames, i);
+					    if (value != null)
+					    {
+					        item.ProcessNames = value.Split(new[] {ATAConstants.ProcessNamesSeparator[0]}, StringSplitOptions.RemoveEmptyEntries);
+					    }
 
-						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i);
-						if (parsedBool.HasValue)
-						{
-							item.IsProcessNamesRegex = parsedBool.Value;
-						}
+					    var parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i);
+					    if (parsedBool.HasValue)
+					    {
+					        item.IsProcessNamesRegex = parsedBool.Value;
+					    }
 
-						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorUsername, i);
-						if (value != null)
-						{
-							item.Username = value;
-						}
+					    value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorUsername, i);
+					    if (value != null)
+					    {
+					        item.Username = value;
+					    }
 
-						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i);
-						if (parsedBool.HasValue)
-						{
-							item.IsUsernameRegex = parsedBool.Value;
-						}
+					    parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i);
+					    if (parsedBool.HasValue)
+					    {
+					        item.IsUsernameRegex = parsedBool.Value;
+					    }
 
-						value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorAppPool, i);
-						if (value != null)
-						{
-							item.AppPool = value;
-						}
+					    value = reader.ReadSettingString(ATASettings.Keys.AttachDescriptorAppPool, i);
+					    if (value != null)
+					    {
+					        item.AppPool = value;
+					    }
 
-						parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i);
-						if (parsedBool.HasValue)
-						{
-							item.IsAppPoolRegex = parsedBool.Value;
-						}
+					    parsedBool = reader.ReadSettingStringToBoolean(ATASettings.Keys.AttachDescriptorIsAppPoolRegex, i);
+					    if (parsedBool.HasValue)
+					    {
+					        item.IsAppPoolRegex = parsedBool.Value;
+					    }
 					}
 					catch (Exception ex)
 					{
@@ -257,6 +263,8 @@ namespace ArcDev.AnotherAttachToAny.Options
 		// based on information from : https://github.com/hesam/SketchSharp/blob/master/SpecSharp/SpecSharp/Microsoft.VisualStudio.Shell/DialogPage.cs
 		public override void SaveSettingsToXml(IVsSettingsWriter writer)
 		{
+		    writer.WriteSettingString(ATASettings.Keys.AttachDescriptorDefaultMultipleMatchHandling, MultipleMatchHandlingDefault.ToString());
+
 			for (var i = 0; i < ATAConstants.MaxCommands; i++)
 			{
 				var item = i >= Attachables.Count ? new AttachDescriptor() : Attachables[i];
@@ -269,8 +277,7 @@ namespace ArcDev.AnotherAttachToAny.Options
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorName, i, item.Name);
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorEnabled, i, item.Enabled);
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorProcessNames, i, string.Join(ATAConstants.ProcessNamesSeparator, item.ProcessNames));
-				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorChooseProcess, i, item.ChooseProcess);
-
+				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorMultipleMatchHandling, i, item.MultiMatchHandling.ToString());
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsProcessNamesRegex, i, item.IsProcessNamesRegex);
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorUsername, i, item.Username);
 				writer.WriteSettingString(ATASettings.Keys.AttachDescriptorIsUsernameRegex, i, item.IsUsernameRegex);

@@ -5,6 +5,31 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 {
 	public static partial class AnotherAttachToAnyExtensions
 	{
+//	    public static T GetEnumIntValue<T>(this RegistryKey key, string keyFormat, int index)
+//	    {
+//            var name = string.Format(keyFormat, index);
+//            var value =  (int)key.GetValue(name);
+//	        return (T)Enum.ToObject(typeof(T), value);
+//	    }
+
+        public static T GetEnumValue<T>(this RegistryKey key, string keyFormat, int index, T defaultValue) where T : struct
+        {
+            var name = string.Format(keyFormat, index);
+            var pureValue =  key.GetValue(name);
+
+	        if (pureValue is string)
+	        {
+	            T rtn;
+	            return Enum.TryParse((string) pureValue, true, out rtn) ? rtn : defaultValue;
+	        }
+            if (pureValue is int)
+	        {
+                return (T)Enum.ToObject(typeof(T), pureValue);
+            }
+
+	        return defaultValue;
+	    }
+
 		public static string GetStringValue(this RegistryKey key, string keyFormat, int index)
 		{
 			var name = string.Format(keyFormat, index);
@@ -39,6 +64,12 @@ namespace ArcDev.AnotherAttachToAny.Extensions
 				return;
 			}
 
+			var name = string.Format(keyFormat, index);
+			key.SetValue(name, value);
+		}
+
+        public static void SetValue(this RegistryKey key, string keyFormat, int index, int value)
+		{
 			var name = string.Format(keyFormat, index);
 			key.SetValue(name, value);
 		}

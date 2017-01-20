@@ -42,5 +42,30 @@ namespace ArcDev.AnotherAttachToAny.Options
 				// if we dont have access to write, there is a problem.
 			}
 		}
+
+	    internal static void ChooseProcessUpdate(RegistryKey key, int descriptorIndex)
+	    {
+	        try
+	        {
+	            var oldName = string.Format(ATASettings.Keys.AttachDescriptorChooseProcess, descriptorIndex);
+	            var valueNames = key.GetValueNames();
+	            if (valueNames.Any(name => name.Equals(oldName, StringComparison.OrdinalIgnoreCase)) == false)
+	            {
+	                // old value not present so nothing to do
+	                return;
+	            }
+
+                var value = key.GetBooleanValue(ATASettings.Keys.AttachDescriptorChooseProcess, descriptorIndex);
+	            key.DeleteValue(oldName, false); // delete the old key
+
+	            var newValue = value ? MultiMatchOptions.Prompt : MultiMatchOptions.Global;
+
+                key.SetValue(ATASettings.Keys.AttachDescriptorMultipleMatchHandling, descriptorIndex, newValue.ToString());
+	        }
+            catch (Exception)
+            {
+                // if we dont have access to write, there is a problem.
+            }
+        }
 	}
 }
